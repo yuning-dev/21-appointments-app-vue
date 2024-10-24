@@ -10,13 +10,18 @@
             <div :class="$style.addItemContainer">
                 <label>
                     Appointment title:
-                    <input type="text" :class="$style.addItemField" v-model="newTitle" @keyup.enter="createAppt" ref="TitleInput" data-testid="TitleInput"/>
+                    <InputText type="text" :class="$style.addItemField" v-model="newTitle" @keyup.enter="createAppt" ref="TitleInput" data-testid="TitleInput"/>
                 </label>
-                <label>
-                    <!-- Not modified as the new data model will be different -->
-                    Due date:
-                    <input type="date" :class="$style.dueDate" v-model="newTaskDueDate" :min="dateOfToday()" data-testid="dueDatePicker"/>
-                </label>
+                <div :class="$style.startEndWrapper">
+                    <label>
+                        Start
+                        <DatePicker showTime hourFormat="12" fluid :class="$style.time" v-model="newStart" data-testid="timePicker"/>
+                    </label>
+                    <label>
+                        End
+                        <DatePicker showTime hourFormat="12" fluid :class="$style.time" v-model="newEnd" data-testid="timePicker"/>
+                    </label>
+                </div>
                 <div>
                     <button :class="[$style.addButton, $style.button]" @click="createAppt" data-testid="addItemBtn">
                         Create appointment
@@ -32,13 +37,35 @@
                 <button :class="$style.button" @click="deleteUpcomingBtnClicked" data-testid="deleteUpcomingBtn">Delete upcoming apppointments</button>
             </div>
             <template v-for="appt in upcomingApptsList">
-                <Appointment :appt="appt" @delete="findAndDeleteAppt" @updateAppt="updateTitleAndDueDate" @moveToCompleted="findApptToMoveToCompleted" />
+                <Appointment :appt="appt" @delete="findAndDeleteAppt" @updateAppt="updateApptTitleAndTime" @moveToCompleted="findApptToMoveToCompleted" />
             </template>
         </section>
         <template v-if="modalDeleteUpcoming">
             <ModalWindow @closeModal="closeModal">
                 <template v-slot>
                     Are you sure you want to delete all the upcoming appointments?
+                    <div :class="$style.modalBtnContainer">
+                        <button :class="$style.button" @click="deleteUpcomingAppts" data-testid="yesBtn">Yes</button>
+                        <button :class="[$style.button, $style.cancelButton]" @click="closeModal">Cancel</button>
+                    </div>
+                </template>
+            </ModalWindow>
+        </template>
+        <section :class="[$style.pastApptsSection, $style.card]">
+            <div :class="$style.listHeader">
+                <h2>
+                    Past Appointments
+                </h2>
+                <button :class="$style.button" @click="deletePastBtnClicked" data-testid="deletePastBtn">Delete past apppointments</button>
+            </div>
+            <template v-for="appt in pastApptsList">
+                <Appointment :appt="appt" @delete="findAndDeleteAppt" @updateAppt="updateApptTitleAndTime" @moveToCompleted="findApptToMoveToCompleted" />
+            </template>
+        </section>
+        <template v-if="modalDeletePast">
+            <ModalWindow @closeModal="closeModal">
+                <template v-slot>
+                    Are you sure you want to delete all the past appointments?
                     <div :class="$style.modalBtnContainer">
                         <button :class="$style.button" @click="deleteUpcomingAppts" data-testid="yesBtn">Yes</button>
                         <button :class="[$style.button, $style.cancelButton]" @click="closeModal">Cancel</button>
@@ -54,7 +81,7 @@
                 <button :class="$style.button" @click="deleteCompletedBtnClicked" data-testid="deleteCompletedBtn">Delete completed appointments</button>
             </div>
             <template v-for="appt in completedApptsList">
-                <Appointment :appt="appt" @delete="findAndDeleteAppt" @updateAppt="updateTitleAndDueDate" @moveToActive="findApptToMoveToActive"/>
+                <Appointment :appt="appt" @delete="findAndDeleteAppt" @updateAppt="updateApptTitleAndTime" @moveToActive="findApptToMoveToActive"/>
             </template>
         </section>
         <template v-if="modalDeleteCompleted">
@@ -87,6 +114,8 @@
 
 
 <script>
+import DatePicker from 'primevue/datepicker'
+import InputText from 'primevue/inputtext'
 
 import { mapStores } from 'pinia'
 import { mapState, mapWritableState } from 'pinia'
@@ -101,25 +130,29 @@ export default {
     components: {
         Appointment,
         ModalWindow,
+        DatePicker,
+        InputText
     },
     data() {
         return {
             newTitle: '',
-            newTaskDueDate: '',
+            newStart: '',
+            newEnd: '',
             isCompleted: false,
             modalDeleteAll: false,
             modalDeleteUpcoming: false,
+            modalDeletePast: false,
             modalDeleteCompleted: false,
         }
     },
     async mounted() {
-        // await this.createSession()
         await this.fetchApptList()
     },
     computed: {
         ...mapStores(useApptStore),
         ...mapState(useApptStore, [ 
             'completedApptsList',
+            'pastApptsList',
             'upcomingApptsList', 
         ]),
         ...mapWritableState(useApptStore, [
@@ -132,27 +165,31 @@ export default {
             'fetchApptList',
             'sendAppt',
             'deleteAppt',
-            'updateDescriptionAndDueDate',
+            'updateTitleAndTime',
             'updateCompletionStatus',
             'deleteMultipleItems',
             'createSession'
         ]),
         async createAppt(e) {
             e.preventDefault()
-            if (this.newTitle !== '' && this.newTaskDueDate !== '') {
-                await this.sendAppt(this.newTitle, this.newTaskDueDate, this.isCompleted)
+            const timeNow = new Date()
+            console.log(typeof this.newStart)
+            console.log(this.newStart)
+            console.log(this.newStart < timeNow)
+            if (this.newTitle !== '' && this.newStart !== '' && this.newEnd !== '') {
+                await this.sendAppt(this.newTitle, this.newStart, this.newEnd, this.isCompleted)
                 this.newTitle = ''
             }
-            this.focusAddTitleInput()
+            // this.focusAddTitleInput()
         },
-        focusAddTitleInput() {
-            this.$refs.TitleInput.focus()
-        },
-        async updateTitleAndDueDate(updatedDescription, updatedDueDate, id) {
+        // focusAddTitleInput() {
+        //     this.$refs.TitleInput.focus()
+        // },
+        async updateApptTitleAndTime(updatedTitle, updatedStart, updatedEnd, id) {
             const apptToUpdate = this.apptList.find((appt) => appt._id === id)
             console.log(apptToUpdate)
             const completion = apptToUpdate.completion
-            await this.updateDescriptionAndDueDate(updatedDescription, updatedDueDate, id, completion)
+            await this.updateTitleAndTime(updatedTitle, updatedStart, updatedEnd, id, completion)
         },
         async findAndDeleteAppt(id) {
             await this.deleteAppt(id)
@@ -166,6 +203,11 @@ export default {
         deleteUpcomingBtnClicked() {
             if (this.upcomingApptsList.length > 0) {
                 this.modalDeleteUpcoming = true
+            }
+        },
+        deletePastBtnClicked() {
+            if (this.pastApptsList.length > 0) {
+                this.modalDeletePast = true
             }
         },
         async deleteUpcomingAppts() {

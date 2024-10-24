@@ -32,18 +32,6 @@ body {
     border-color: rgb(255, 181, 54);
 }
 
-.addButton {
-    color: 	#404040;
-    background: #cdf5fd;
-    border: 1px solid #4ecaec;
-}
-
-.addButton:hover {
-    color: 	#404040;
-    background: #a0e9ff;
-    border-color: #a0e9ff;
-}
-
 .cancelButton {
     color: #404040;
     background: rgb(235, 235, 235);
@@ -72,11 +60,30 @@ body {
 }
 
 .addItemField {
-    width: 400px;
+    width: 418px;
     margin-left: 10px;
 }
 
-.dueDate {
+.startEndWrapper {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.addButton {
+    margin-top: 10px;
+    color: 	#404040;
+    background: #cdf5fd;
+    border: 1px solid #4ecaec;
+}
+
+.addButton:hover {
+    color: 	#404040;
+    background: #a0e9ff;
+    border-color: #a0e9ff;
+}
+
+.time {
     margin-left: 10px;
 }
 
@@ -97,6 +104,11 @@ body {
 .listHeader {
     display: flex;
     justify-content: space-between;
+}
+
+.pastApptsSection {
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .completedApptsSection {

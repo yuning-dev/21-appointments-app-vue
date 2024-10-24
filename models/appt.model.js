@@ -5,7 +5,11 @@ const ApptSchema = new Schema({
         type: String,
         required: true
     },
-    dueDate: {
+    start: {
+        type: Date,
+        required: true
+    },
+    end: {
         type: Date,
         required: true
     },

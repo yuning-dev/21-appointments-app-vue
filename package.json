@@ -6,7 +6,7 @@
   "scripts": {
     "test": "test",
     "build:prod": "cd apps/appt-list/ && npm run build && cd ../../ && rm -rf views/appt-list/ && mkdir -p views && cp -r apps/appt-list/dist/ views/appt-list",
-    "build:local": "cd apps/appt-list/ && npm run build && cd ../../ && rm -rf views/appt-list/ && cp -r apps/appt-list/dist/ views/appt-list", 
+    "build:local": "cd apps/appt-list/ && npm run build && cd ../../ && rm -rf views/appt-list/ && cp -r apps/appt-list/dist/ views/appt-list",
     "start:server": "nodemon index.js --ignore 'apps/'"
   },
   "author": "Yuning",

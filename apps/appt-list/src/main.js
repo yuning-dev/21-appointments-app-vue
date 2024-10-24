@@ -1,4 +1,6 @@
 import './assets/main.css'
+import PrimeVue from 'primevue/config'
+import Aura from '@primevue/themes/aura'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import routes from './routes'
 
@@ -17,5 +19,11 @@ const app = createApp(App)
 app.use(router)
 
 app.use(pinia)
+
+app.use(PrimeVue, {
+    theme: {
+        preset: Aura,
+    }
+})
 
 app.mount('#app')
