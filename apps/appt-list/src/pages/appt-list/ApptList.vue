@@ -67,7 +67,7 @@
                 <template v-slot>
                     Are you sure you want to delete all the past appointments?
                     <div :class="$style.modalBtnContainer">
-                        <button :class="$style.button" @click="deleteUpcomingAppts" data-testid="yesBtn">Yes</button>
+                        <button :class="$style.button" @click="deletePastAppts" data-testid="yesBtn">Yes</button>
                         <button :class="[$style.button, $style.cancelButton]" @click="closeModal">Cancel</button>
                     </div>
                 </template>
@@ -205,13 +205,17 @@ export default {
                 this.modalDeleteUpcoming = true
             }
         },
+        async deleteUpcomingAppts() {
+            await this.deleteMultipleItems('upcoming')
+            this.closeModal()
+        },
         deletePastBtnClicked() {
             if (this.pastApptsList.length > 0) {
                 this.modalDeletePast = true
             }
         },
-        async deleteUpcomingAppts() {
-            await this.deleteMultipleItems('upcoming')
+        async deletePastAppts() {
+            await this.deleteMultipleItems('past')
             this.closeModal()
         },
         deleteCompletedBtnClicked() {
@@ -235,6 +239,7 @@ export default {
         closeModal() {
             this.modalDeleteAll = false
             this.modalDeleteUpcoming = false
+            this.modalDeletePast = false
             this.modalDeleteCompleted = false
         },
     },

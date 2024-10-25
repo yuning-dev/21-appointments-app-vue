@@ -95,11 +95,18 @@ router.post('/appointments/delete-upcoming', async (req, res) => {
     }
 })
 
-// router.post('/appointments/delete-past', async (req, res) => {
-//     try {
-//         const deleted = 
-//     }
-// })
+router.post('/appointments/delete-past', async (req, res) => {
+    try {
+        const timeNow = new Date()
+        const deleted = await Appointment.deleteMany({ end: {$lt: timeNow} })
+        if (!deleted) {
+            throw new Error('Something went wrong')
+        }
+        res.status(200).json(deleted)
+    } catch (error) {
+        res.status(500)
+    }
+})
 
 router.post('/appointments/delete-completed', async (req, res) => {
     try {
