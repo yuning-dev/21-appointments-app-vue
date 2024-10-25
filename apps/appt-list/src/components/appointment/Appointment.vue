@@ -5,10 +5,12 @@
                 {{ appt.title }}
             </div>
             <div v-if="!appt.completion" data-testid="dueDate" :class="{ [$style.orange]: isOrange, [$style.red]: isRed }">
-                Due date: {{ appt.dueDate }}
+                Start: {{ formattedStart }}
+                End: {{ formattedEnd }}
             </div>
             <div v-if="appt.completion">
-                Due date: {{ appt.dueDate }}
+                Start: {{ formattedStart }}
+                End: {{ formattedEnd }}
             </div>
         </template>
         <template v-else>
@@ -19,7 +21,8 @@
                 Due date <input type="date" data-testid="editDueDate" v-model="editedDueDate" :min="dateOfToday()">
             </div>
             <div v-if="appt.completion">
-                Due date: {{ appt.dueDate }}
+                Start: {{ formattedStart }}
+                End: {{ formattedEnd }}
             </div>
             <button data-testid="editCompleteBtn" :class="[$style.editCompleteBtn, $style.button]" @click="editCompleteBtnClicked">Edit complete</button>
         </template>
@@ -61,6 +64,14 @@ export default {
         },
         isRed() {
             return this.daysToDeadline <= 0
+        },
+        formattedStart() {
+            const dateString = this.appt.start.toISOString()
+            return `${dateString.slice(0, 10)} ${dateString.slice(11, 16)}`
+        },
+        formattedEnd() {
+            const dateString = this.appt.end.toISOString()
+            return `${dateString.slice(0, 10)} ${dateString.slice(11, 16)}`
         }
     },
     methods: {

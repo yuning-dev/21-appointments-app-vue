@@ -9,11 +9,11 @@ export const useApptStore = defineStore('appts', {
         // logic need to be updated!!
         upcomingApptsList(state) {
             const timeNow = new Date()
-            return state.apptList.filter((appt) => appt.end > timeNow)
+            return state.apptList.filter((appt) => appt.end > timeNow && !appt.completion)
         },
         pastApptsList(state) {
             const timeNow = new Date()
-            return state.apptList.filter((appt) => appt.end < timeNow)
+            return state.apptList.filter((appt) => appt.end < timeNow && appt.completion)
         },
         completedApptsList(state) {
             return state.apptList.filter((appt) => appt.completion)
