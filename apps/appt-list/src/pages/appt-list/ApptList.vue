@@ -211,7 +211,7 @@ export default {
             }
         },
         async deleteUpcomingAppts() {
-            await this.deleteMultipleItems('active')
+            await this.deleteMultipleItems('upcoming')
             this.closeModal()
         },
         deleteCompletedBtnClicked() {

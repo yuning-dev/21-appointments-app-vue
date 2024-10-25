@@ -13,7 +13,7 @@ export const useApptStore = defineStore('appts', {
         },
         pastApptsList(state) {
             const timeNow = new Date()
-            return state.apptList.filter((appt) => appt.end < timeNow && appt.completion)
+            return state.apptList.filter((appt) => appt.end < timeNow && !appt.completion)
         },
         completedApptsList(state) {
             return state.apptList.filter((appt) => appt.completion)
