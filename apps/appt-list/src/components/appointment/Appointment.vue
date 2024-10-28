@@ -85,11 +85,11 @@ export default {
         },
         formattedStart() {
             const dateString = this.appt.start.toISOString()
-            return `${dateString.slice(0, 10)} ${dateString.slice(11, 16)}`
+            return `${dateString.slice(8, 10)}-${dateString.slice(5, 7)}-${dateString.slice(0, 4)} ${dateString.slice(11, 16)}`
         },
         formattedEnd() {
             const dateString = this.appt.end.toISOString()
-            return `${dateString.slice(0, 10)} ${dateString.slice(11, 16)}`
+            return `${dateString.slice(8, 10)}-${dateString.slice(5, 7)}-${dateString.slice(0, 4)} ${dateString.slice(11, 16)}`
         }
     },
     methods: {
