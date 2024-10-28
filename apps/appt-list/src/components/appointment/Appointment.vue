@@ -4,21 +4,28 @@
             <div data-testid="title" :class="$style.apptTitleContainer">
                 {{ appt.title }}
             </div>
-            <div v-if="!appt.completion" data-testid="dueDate" :class="{ [$style.orange]: isOrange, [$style.red]: isRed }">
-                Start: {{ formattedStart }}
-                End: {{ formattedEnd }}
+            <div v-if="!isPast && !appt.completion" data-testid="startEndDates">
+            <!-- :class="{ [$style.orange]: isOrange, [$style.red]: isRed } -->
+                <div :class="$style.startEndWrapper">
+                    <div><span :class="$style.timeTitle">Start:</span> {{ formattedStart }}</div>
+                    <div><span :class="$style.timeTitle">End:</span> {{ formattedEnd }}</div>
+                </div>
             </div>
-            <div v-if="appt.completion">
-                Start: {{ formattedStart }}
-                End: {{ formattedEnd }}
+            <div v-else>
+                <div :class="$style.startEndWrapper">
+                    <div><span :class="$style.timeTitle">Start:</span> {{ formattedStart }}</div>
+                    <div><span :class="$style.timeTitle">End:</span> {{ formattedEnd }}</div>
+                </div>
             </div>
         </template>
+
         <template v-else>
             <div>
-                Title <input type="text" data-testid="editTitleInput" v-model="editedApptTitle" />
+                Title <InputText type="text" data-testid="editTitleInput" v-model="editedApptTitle" />
             </div>
             <div v-if="!appt.completion">
-                Due date <input type="date" data-testid="editDueDate" v-model="editedDueDate" :min="dateOfToday()">
+                Start <DatePicker showTime hourFormat="12" fluid data-testid="editStart" v-model="editedStart" />
+                End <DatePicker showTime hourFormat="12" fluid data-testid="editEnd" v-model="editedEnd" />
             </div>
             <div v-if="appt.completion">
                 Start: {{ formattedStart }}
@@ -37,16 +44,23 @@
 </template>
 
 <script>
+import DatePicker from 'primevue/datepicker'
+import InputText from 'primevue/inputtext';
 
 export default {
     name: 'Appointment',
+    components: {
+        DatePicker,
+        InputText
+    },
     props: {
         appt: Object,
     },
     data() {
         return {
             editedApptTitle: this.appt.title,
-            editedDueDate: this.appt.dueDate,
+            editedStart: this.appt.start,
+            editedEnd: this.appt.end,
             isInEditMode: false,
             isButtonDisabled: false,
         }
@@ -59,11 +73,15 @@ export default {
             const daysToDeadline = (deadline - dateNow) / 1000 / 60 / 60 / 24
             return daysToDeadline
         },
-        isOrange() {
-            return 0 < this.daysToDeadline && this.daysToDeadline <= 1
-        },
-        isRed() {
-            return this.daysToDeadline <= 0
+        // isOrange() {
+        //     return 0 < this.daysToDeadline && this.daysToDeadline <= 1
+        // },
+        // isRed() {
+        //     return this.daysToDeadline <= 0
+        // },
+        isPast() {
+            const timeNow = new Date()
+            return this.appt.end < timeNow
         },
         formattedStart() {
             const dateString = this.appt.start.toISOString()
@@ -82,8 +100,8 @@ export default {
         editCompleteBtnClicked() {
             this.isInEditMode = false
             this.isButtonDisabled = false
-            console.log(this.editedApptTitle, this.editedDueDate, this.appt._id)
-            this.$emit('updateAppt', this.editedApptTitle, this.editedDueDate, this.appt._id)
+            console.log(this.editedApptTitle, this.editedStart, this.editedEnd, this.appt._id)
+            this.$emit('updateAppt', this.editedApptTitle, this.editedStart, this.editedEnd, this.appt._id)
         },
         deleteButtonClicked() {
             this.$emit('delete', this.appt._id)

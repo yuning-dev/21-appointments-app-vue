@@ -33,6 +33,15 @@
     width: 40%;
 }
 
+.startEndWrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.timeTitle {
+    width: 15px;
+}
+
 .editCompleteBtn {
     margin-left: 5px;
 }

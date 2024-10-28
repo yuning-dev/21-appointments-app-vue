@@ -15,11 +15,11 @@
                 <div :class="$style.startEndWrapper">
                     <label>
                         Start
-                        <DatePicker showTime hourFormat="12" fluid :class="$style.time" v-model="newStart" data-testid="timePicker"/>
+                        <DatePicker showTime hourFormat="12" showIcon icondisplay="input" fluid :class="$style.time" v-model="newStart" data-testid="timePicker"/>
                     </label>
                     <label>
                         End
-                        <DatePicker showTime hourFormat="12" fluid :class="$style.time" v-model="newEnd" data-testid="timePicker"/>
+                        <DatePicker :minDate="this.newStart" showTime hourFormat="12" showIcon icondisplay="input" fluid :class="$style.time" v-model="newEnd" data-testid="timePicker"/>
                     </label>
                 </div>
                 <div>
