@@ -19,9 +19,26 @@
             </div>
         </template>
 
+        <!-- If in Edit mode, modal window appears allowing for editing -->
         <template v-else>
+            <ModalWindow @closeModal="closeModal">
+                <template v-slot>
+                    <CreateApp />
+                </template>
+            </ModalWindow>
+        </template>
+
+        <div>
+            <button data-testid="completedBtn" :class="$style.button" v-if="!appt.completion" @click="moveToCompletedButtonClicked" :disabled="isButtonDisabled">Completed</button>
+            <button data-testid="makeActiveBtn" :class="$style.button" v-if="appt.completion" @click="makeActiveButtonClicked">Make active</button>
+            <button data-testid="editBtn" :class="$style.button" v-if="!appt.completion" @click="editButtonClicked" :disabled="isButtonDisabled">Edit</button>
+            <button :class="$style.button" v-if="appt.completion" @click="editButtonClicked" :disabled="isButtonDisabled">Edit title</button>
+            <button data-testid="deleteBtn" :class="$style.button" @click="deleteButtonClicked">Delete</button>
+        </div>
+
+        <!-- <template v-else>
             <div>
-                Title <InputText type="text" data-testid="editTitleInput" v-model="editedApptTitle" />
+                Title <InputText type="text" data-testid="editTitleInput" v-model="editedTitle" />
             </div>
             <div v-if="!appt.completion">
                 Start <DatePicker showTime hourFormat="12" fluid data-testid="editStart" v-model="editedStart" />
@@ -32,33 +49,38 @@
                 End: {{ formattedEnd }}
             </div>
             <button data-testid="editCompleteBtn" :class="[$style.editCompleteBtn, $style.button]" @click="editCompleteBtnClicked">Edit complete</button>
-        </template>
-        <div>
+        </template> -->
+        <!-- <div>
             <button data-testid="completedBtn" :class="$style.button" v-if="!appt.completion" @click="moveToCompletedButtonClicked" :disabled="isButtonDisabled">Completed</button>
             <button data-testid="makeActiveBtn" :class="$style.button" v-if="appt.completion" @click="makeActiveButtonClicked">Make active</button>
             <button data-testid="editBtn" :class="$style.button" v-if="!appt.completion" @click="editButtonClicked" :disabled="isButtonDisabled">Edit</button>
             <button :class="$style.button" v-if="appt.completion" @click="editButtonClicked" :disabled="isButtonDisabled">Edit title</button>
             <button data-testid="deleteBtn" :class="$style.button" @click="deleteButtonClicked">Delete</button>
-        </div>
+        </div> -->
     </div>
 </template>
 
 <script>
 import DatePicker from 'primevue/datepicker'
-import InputText from 'primevue/inputtext';
+import InputText from 'primevue/inputtext'
+
+import CreateApp from '../create-appt/CreateAppt.vue'
+import ModalWindow from '../modal-window/ModalWindow.vue';
 
 export default {
     name: 'Appointment',
     components: {
         DatePicker,
-        InputText
+        InputText,
+        CreateApp,
+        ModalWindow
     },
     props: {
         appt: Object,
     },
     data() {
         return {
-            editedApptTitle: this.appt.title,
+            editedTitle: this.appt.title,
             editedStart: this.appt.start,
             editedEnd: this.appt.end,
             isInEditMode: false,
@@ -96,12 +118,16 @@ export default {
         editButtonClicked() {
             this.isButtonDisabled = true
             this.isInEditMode = true
+            this.$emit('editMode', this.editedTitle, this.editedStart, this.editedEnd, this.appt._id)
         },
-        editCompleteBtnClicked() {
+        // editCompleteBtnClicked() {
+        //     this.isInEditMode = false
+        //     this.isButtonDisabled = false
+        //     console.log(this.editedTitle, this.editedStart, this.editedEnd, this.appt._id)
+        //     this.$emit('updateAppt', this.editedTitle, this.editedStart, this.editedEnd, this.appt._id)
+        // },
+        closeModal() {
             this.isInEditMode = false
-            this.isButtonDisabled = false
-            console.log(this.editedApptTitle, this.editedStart, this.editedEnd, this.appt._id)
-            this.$emit('updateAppt', this.editedApptTitle, this.editedStart, this.editedEnd, this.appt._id)
         },
         deleteButtonClicked() {
             this.$emit('delete', this.appt._id)

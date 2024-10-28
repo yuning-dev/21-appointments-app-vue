@@ -58,6 +58,11 @@ body {
     text-align: center;
 }
 
+.addBtnWrapper {
+    max-width: 550px;
+    margin: 20px auto 0 auto;
+}
+
 .upcomingApptsSection {
     padding-left: 20px;
     padding-right: 20px;

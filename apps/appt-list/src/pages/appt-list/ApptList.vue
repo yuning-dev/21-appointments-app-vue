@@ -7,7 +7,7 @@
             <p :class="$style.intro">
                 With our snazzy appointment app, managing appointments has never been easier. Begin by entering your appointment details below.
             </p>
-            <CreateAppt />
+            <CreateAppt :appt="appt" @createAppt="createAppointment" />
         </section>
         <section :class="[$style.upcomingApptsSection, $style.card]">
             <div :class="$style.listHeader">
@@ -117,10 +117,10 @@ export default {
     },
     data() {
         return {
-            newTitle: '',
-            newStart: '',
-            newEnd: '',
-            isCompleted: false,
+            // newTitle: '',
+            // newStart: '',
+            // newEnd: '',
+            // isCompleted: false,
             modalDeleteAll: false,
             modalDeleteUpcoming: false,
             modalDeletePast: false,
@@ -152,15 +152,13 @@ export default {
             'deleteMultipleItems',
             'createSession'
         ]),
-        async createAppt(e) {
-            e.preventDefault()
+        async createAppointment(title, start, end, completionStatus) {
             const timeNow = new Date()
-            console.log(typeof this.newStart)
-            console.log(this.newStart)
-            console.log(this.newStart < timeNow)
-            if (this.newTitle !== '' && this.newStart !== '' && this.newEnd !== '') {
-                await this.sendAppt(this.newTitle, this.newStart, this.newEnd, this.isCompleted)
-                this.newTitle = ''
+            console.log(typeof start)
+            console.log(start)
+            console.log(start < timeNow)
+            if (title !== '' && start !== '' && end !== '') {
+                await this.sendAppt(title, start, end, completionStatus)
             }
             // this.focusAddTitleInput()
         },
