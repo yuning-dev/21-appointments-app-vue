@@ -49,44 +49,6 @@ body {
     padding-left: 20px;
 }
 
-.addItemContainer {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    max-width: 550px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.addItemField {
-    width: 418px;
-    margin-left: 10px;
-}
-
-.startEndWrapper {
-    margin-top: 10px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.addButton {
-    margin-top: 10px;
-    color: 	#404040;
-    background: #cdf5fd;
-    border: 1px solid #4ecaec;
-}
-
-.addButton:hover {
-    color: 	#404040;
-    background: #a0e9ff;
-    border-color: #a0e9ff;
-}
-
-.time {
-    margin-left: 10px;
-}
-
 .title {
     text-align: center;
     padding-bottom: 10px;

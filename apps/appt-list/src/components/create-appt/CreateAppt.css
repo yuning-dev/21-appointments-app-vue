@@ -1,0 +1,42 @@
+.button {
+    padding: 5px 8px;
+    border-radius: 3px;
+    border: 1px solid rgb(255, 162, 0);
+    background: #ffd4b7;
+    color: 	#404040;
+    font-size: 1.005em;
+}
+
+.addItemContainer {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.addItemField {
+    width: 418px;
+    margin-left: 10px;
+}
+
+.startEndWrapper {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.addButton {
+    margin-top: 10px;
+    color: 	#404040;
+    background: #cdf5fd;
+    border: 1px solid #4ecaec;
+}
+
+.addButton:hover {
+    color: 	#404040;
+    background: #a0e9ff;
+    border-color: #a0e9ff;
+}

@@ -66,13 +66,13 @@ export default {
         }
     },
     computed: {
-        daysToDeadline() {
-            const deadline = Date.parse(this.appt.dueDate)
-            const timeNow = Date.now()
-            const dateNow = timeNow - (timeNow % 86400000)
-            const daysToDeadline = (deadline - dateNow) / 1000 / 60 / 60 / 24
-            return daysToDeadline
-        },
+        // daysToDeadline() {
+        //     const deadline = Date.parse(this.appt.dueDate)
+        //     const timeNow = Date.now()
+        //     const dateNow = timeNow - (timeNow % 86400000)
+        //     const daysToDeadline = (deadline - dateNow) / 1000 / 60 / 60 / 24
+        //     return daysToDeadline
+        // },
         // isOrange() {
         //     return 0 < this.daysToDeadline && this.daysToDeadline <= 1
         // },

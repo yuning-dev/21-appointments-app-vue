@@ -3,8 +3,8 @@
         <div :class="$style.modalContent">
             <button :class="$style.closeBtn" @click="closeBtnClicked">&times;</button>
             <div :class="$style.modalInnerContent">
-            <slot>
-            </slot>
+                <slot>
+                </slot>
             </div>
         </div>
     </div>

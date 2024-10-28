@@ -7,27 +7,7 @@
             <p :class="$style.intro">
                 With our snazzy appointment app, managing appointments has never been easier. Begin by entering your appointment details below.
             </p>
-            <div :class="$style.addItemContainer">
-                <label>
-                    Appointment title:
-                    <InputText type="text" :class="$style.addItemField" v-model="newTitle" @keyup.enter="createAppt" ref="TitleInput" data-testid="TitleInput"/>
-                </label>
-                <div :class="$style.startEndWrapper">
-                    <label>
-                        Start
-                        <DatePicker showTime hourFormat="12" showIcon icondisplay="input" fluid :class="$style.time" v-model="newStart" data-testid="timePicker"/>
-                    </label>
-                    <label>
-                        End
-                        <DatePicker :minDate="this.newStart" showTime hourFormat="12" showIcon icondisplay="input" fluid :class="$style.time" v-model="newEnd" data-testid="timePicker"/>
-                    </label>
-                </div>
-                <div>
-                    <button :class="[$style.addButton, $style.button]" @click="createAppt" data-testid="addItemBtn">
-                        Create appointment
-                    </button>
-                </div>
-            </div>
+            <CreateAppt />
         </section>
         <section :class="[$style.upcomingApptsSection, $style.card]">
             <div :class="$style.listHeader">
@@ -124,12 +104,14 @@ import { useApptStore } from '@/stores/ApptStore'
 
 import Appointment from '../../components/appointment/Appointment.vue'
 import ModalWindow from '../../components/modal-window/ModalWindow.vue'
+import CreateAppt from '../../components/create-appt/CreateAppt.vue'
 
 export default {
     name: 'ApptList',
     components: {
         Appointment,
         ModalWindow,
+        CreateAppt,
         DatePicker,
         InputText
     },
