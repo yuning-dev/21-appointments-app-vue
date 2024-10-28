@@ -7,7 +7,7 @@
             <p :class="$style.intro">
                 With our snazzy appointment app, managing appointments has never been easier. Begin by entering your appointment details below.
             </p>
-            <CreateAppt :appt="appt" @createAppt="createAppointment" />
+            <CreateAppt :appt="appt" @createAppt="createAppointment" @updateAppt="updateApptTitleAndTime" />
         </section>
         <section :class="[$style.upcomingApptsSection, $style.card]">
             <div :class="$style.listHeader">
@@ -117,6 +117,7 @@ export default {
     },
     data() {
         return {
+            appt: {},
             // newTitle: '',
             // newStart: '',
             // newEnd: '',

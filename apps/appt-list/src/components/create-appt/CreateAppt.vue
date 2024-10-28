@@ -1,5 +1,5 @@
 <template>
-    <template v-if="!appt_id">
+    <template v-if="!appt._id">
         <div :class="$style.addItemContainer">
             <label>
                 Appointment title:
@@ -24,7 +24,7 @@
         </div>
     </template>
 
-    <!-- <template v-else>
+    <template v-else>
         <div :class="$style.addItemContainer">
             <label>
                 Appointment title:
@@ -46,7 +46,7 @@
                 </button>
             </div>
         </div>
-    </template> -->
+    </template>
 
 </template>
 
@@ -70,20 +70,22 @@ export default {
             newStart: '',
             newEnd: '',
             isCompleted: false,
-            // editedTitle: this.appt.title,
-            // editedStart: this.appt.start,
-            // editedEnd: this.appt.end
+            editedTitle: this.appt.title,
+            editedStart: this.appt.start,
+            editedEnd: this.appt.end
         }
     },
     methods: {
         sendCreateAppt() {
             console.log(this.newTitle, this.newStart)
             this.$emit('createAppt', this.newTitle, this.newStart, this.newEnd, this.isCompleted)
-            this.title = ''
+            this.newTitle = ''
         },
-        // sendUpdateAppt() {
-        //     this.$emit('updateAppt', this.editedTitle, this.editedStart, this.editedEnd, this._id)
-        // }
+        sendUpdateAppt() {
+            console.log(this.editedTitle, this.editedStart)
+            this.$emit('updateAppt', this.editedTitle, this.editedStart, this.editedEnd, this.appt._id)
+            this.$emit('closeModal')
+        }
     }
 }
 </script>
