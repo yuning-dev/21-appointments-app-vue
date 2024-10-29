@@ -16,7 +16,6 @@
                     <DatePicker :minDate="earliestNewApptEnd" showTime hourFormat="12" showIcon icondisplay="input" fluid :class="$style.time" v-model="newEnd" data-testid="timePicker"/>
                 </label>
             </div>
-            <div v-if="hasNewEndWarning" :class="$style.endWarning">The appointment must be at least 15 minutes long.</div>
             <div :class="$style.addBtnWrapper">
                 <button :class="[$style.addButton, $style.button]" @click="sendCreateAppt" data-testid="addItemBtn">
                     Create appointment
@@ -42,7 +41,6 @@
                     <DatePicker v-model="editedEnd" :minDate="earliestUpdatedApptEnd" showTime hourFormat="12" showIcon icondisplay="input" fluid :class="$style.time" data-testid="timePicker"/>
                 </label>
             </div>
-            <div v-if="hasEditedEndWarning" :class="$style.endWarning">The appointment must be at least 15 minutes long.</div>
             <div :class="$style.addBtnWrapper">
                 <button :class="[$style.addButton, $style.button]" @click="sendUpdateAppt" data-testid="updateItemBtn">
                     Update appointment
@@ -75,28 +73,22 @@ export default {
             newStart: '',
             newEnd: '',
             isCompleted: false,
-            hasNewEndWarning: false,
             //editedTitle etc: the original value is the current value before editing
             //after editing it carries the updated value that is sent to the api request 
-            editedTitle: this.appt.title,
-            editedStart: this.appt.start,
+            editedTitle: this.appt?.title,
+            editedStart: this.appt?.start,
             editedEnd: this.appt.end,
-            hasEditedEndWarning: false
         }
     },
     watch: {
         newEnd(newEnd, oldEnd) {
             if (newEnd < addMinutes(this.newStart, 15)) {
-                this.hasNewEndWarning = true
-            } else {
-                this.hasNewEndWarning = false
+                this.newEnd = addMinutes(this.newStart, 15)
             }
         },
         editedEnd(newEditedEnd, oldEditedEnd) {
             if (newEditedEnd < addMinutes(this.editedStart, 15)) {
-                this.hasEditedEndWarning = true
-            } else {
-                this.hasEditedEndWarning = false
+                this.editedEnd = addMinutes(this.editedStart, 15)
             }
         }
     },
