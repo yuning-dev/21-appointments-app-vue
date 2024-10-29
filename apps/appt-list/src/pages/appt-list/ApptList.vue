@@ -17,7 +17,7 @@
                 <button :class="$style.button" @click="deleteUpcomingBtnClicked" data-testid="deleteUpcomingBtn">Delete upcoming apppointments</button>
             </div>
             <template v-for="appt in upcomingApptsList">
-                <Appointment :appt="appt" @delete="findAndDeleteAppt" @updateAppt="updateApptTitleAndTime" @moveToCompleted="findApptToMoveToCompleted" />
+                <Appointment :appt="appt" @editMode="" @delete="findAndDeleteAppt" @updateAppt="updateApptTitleAndTime" @moveToCompleted="findApptToMoveToCompleted" />
             </template>
         </section>
         <template v-if="modalDeleteUpcoming">
@@ -154,10 +154,6 @@ export default {
             'createSession'
         ]),
         async createAppointment(title, start, end, completionStatus) {
-            const timeNow = new Date()
-            console.log(typeof start)
-            console.log(start)
-            console.log(start < timeNow)
             if (title !== '' && start !== '' && end !== '') {
                 await this.sendAppt(title, start, end, completionStatus)
             }

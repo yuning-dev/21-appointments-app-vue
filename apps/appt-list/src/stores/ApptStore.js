@@ -6,7 +6,6 @@ export const useApptStore = defineStore('appts', {
         apptList: [],
     }),
     getters: {
-        // logic need to be updated!!
         upcomingApptsList(state) {
             const timeNow = new Date()
             return state.apptList.filter((appt) => appt.end > timeNow && !appt.completion)

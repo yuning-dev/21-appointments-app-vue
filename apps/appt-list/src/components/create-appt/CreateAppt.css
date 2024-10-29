@@ -28,6 +28,11 @@
     justify-content: space-between;
 }
 
+.endWarning {
+    display: block;
+    color: #D2122E;
+}
+
 .addButton {
     margin-top: 10px;
     color: 	#404040;
