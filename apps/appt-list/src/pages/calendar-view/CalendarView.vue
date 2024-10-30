@@ -3,9 +3,9 @@
         <div :class="$style.card">
             In the Calendar view:
             <br>
-            - create appointments by double clicking empty space in the calendar
+            - to create an appointment, click the Add Appointment button at the bottom right of the calendar
             <br>
-            - update an appointment by double clicking it
+            - to update an appointment, double click it
         </div>
         <div :class="$style.cal">
             <vue-cal 
@@ -19,13 +19,11 @@
                 :on-event-create="getCreateApptPopUp"
                 :on-event-dblclick="getUpdateApptPopUp"
                 :cell-click-hold="false"
-                :drag-to-create-event="false"
-                @cell-dblclick="$refs.vuecal.createEvent(
-                    $event,
-                    120,
-                    { title: 'New Event', class: 'blue-event' }
-                )">
+                :drag-to-create-event="false">
             </vue-cal>
+            <div :class="$style.addBtnWrapper">
+                <button :class="[$style.addBtn, $style.button]" @click="getCreateApptPopUp">Add Appointment</button>
+            </div>
             <template v-if="hasPopUp">
                 <div :class="$style.popUpWrapper">
                     <div :class="$style.popUp">
@@ -76,6 +74,7 @@ export default {
             this.hasPopUp = false
         },
         getCreateApptPopUp() {
+            this.appt = {}
             this.hasPopUp = true
         },
         getUpdateApptPopUp(appt, e) {
