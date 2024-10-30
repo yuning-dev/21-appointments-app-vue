@@ -7,6 +7,19 @@
     font-size: 1.005em;
 }
 
+.closeBtn {
+    color: white;
+    background: crimson;
+    float: right;
+    border: none;
+    font-size: 1.1em;
+    padding: 0 5px;
+}
+
+.closeBtn:hover {
+    font-weight: bold;
+}
+
 .addItemContainer {
     margin-top: 20px;
     display: flex;

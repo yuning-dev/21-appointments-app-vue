@@ -1,7 +1,11 @@
 <template>
     <div :class="$style.wrapper">
         <div :class="$style.card">
-            In the Calendar view, double click to create appointments.
+            In the Calendar view:
+            <br>
+            - create appointments by double clicking empty space in the calendar
+            <br>
+            - update an appointment by double clicking it
         </div>
         <div :class="$style.cal">
             <vue-cal 
@@ -24,8 +28,8 @@
             </vue-cal>
             <template v-if="hasPopUp">
                 <div :class="$style.popUpWrapper">
-                    <div :class="$style.popUp" @focusout.self="closePopUp">
-                        <CreateAppt :appt="appt" @createAppt="createAppointment" @updateAppt="updateApptTitleAndTime" @deleteAppt="findAndDeleteAppt"></CreateAppt>
+                    <div :class="$style.popUp">
+                        <CreateAppt :appt="appt" :hasDeleteBtn="true" :hasCloseBtn="true" @createAppt="createAppointment" @updateAppt="updateApptTitleAndTime" @deleteAppt="findAndDeleteAppt" @closePopUp="closePopUp"></CreateAppt>
                     </div>
                 </div>
             </template>

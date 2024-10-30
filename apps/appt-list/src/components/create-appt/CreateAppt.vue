@@ -1,9 +1,7 @@
 <template>
     <div :class="$style.addItemContainer">
-        <div v-if="isInEditMode" :class="$style.deleteBtnWrapper">
-            <button :class="[$style.deleteButton, $style.button]" @click="sendDeleteAppt" data-testid="deleteItemBtn">
-                Delete appointment
-            </button>
+        <div v-if="hasCloseBtn">
+            <button :class="$style.closeBtn" @click="closeBtnClicked">&times;</button>
         </div>
         <label>
             Appointment title:
@@ -29,6 +27,11 @@
                 Update appointment
             </button>
         </div>
+        <div v-if="isInEditMode && hasDeleteBtn" :class="$style.deleteBtnWrapper">
+            <button :class="[$style.deleteButton, $style.button]" @click="sendDeleteAppt" data-testid="deleteItemBtn">
+                Delete appointment
+            </button>
+        </div>
     </div>
 </template>
 
@@ -45,7 +48,9 @@ export default {
     },
     emits: ['createAppt', 'updateAppt', 'deleteAppt'],
     props: {
-        appt: Object
+        appt: Object,
+        hasDeleteBtn: Boolean,
+        hasCloseBtn: Boolean
     },
     data() {
         return {
@@ -85,6 +90,9 @@ export default {
         },
         sendDeleteAppt() {
             this.$emit('deleteAppt', this.appt._id)
+        },
+        closeBtnClicked() {
+            this.$emit('closePopUp')
         }
     }
 }

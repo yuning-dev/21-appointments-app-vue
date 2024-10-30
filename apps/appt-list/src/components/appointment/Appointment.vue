@@ -23,7 +23,7 @@
         <template v-else>
             <ModalWindow @closeModal="closeModal">
                 <template v-slot>
-                    <CreateApp :appt="appt" @updateAppt="sendUpdateAppt" @deleteAppt="sendDeleteAppt" @closeModal="closeModal"/>
+                    <CreateApp :appt="appt" :hasDeleteBtn="false" :hasCloseBtn="false" @updateAppt="sendUpdateAppt" @deleteAppt="sendDeleteAppt" @closeModal="closeModal"/>
                 </template>
             </ModalWindow>
         </template>
