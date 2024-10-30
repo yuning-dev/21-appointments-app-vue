@@ -66,3 +66,50 @@
     background: #a0e9ff;
     border-color: #a0e9ff;
 }
+
+/* Below is for sidebar configuration */
+.addItemContainerSB {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.addItemFieldSB {
+    width: 250px;
+}
+
+.startEndWrapperSB {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.addButtonSB {
+    margin-top: 20px;
+    color: 	#404040;
+    background: #cdf5fd;
+    border: 1px solid #4ecaec;
+}
+
+.addButtonSB:hover {
+    color: 	#404040;
+    background: #a0e9ff;
+    border-color: #a0e9ff;
+}
+
+.deleteBtnWrapper {
+    display: flex;
+    justify-content: end;
+}
+
+.deleteButton {
+    margin-bottom: 10px;
+}
+
+.deleteButton:hover {
+    background: rgb(255, 162, 0);
+}

@@ -7,27 +7,29 @@
             <br>
             - to update an appointment, double click it
         </div>
-        <div :class="$style.cal">
-            <vue-cal 
-                style="width: 1000px" 
-                ref="vuecal"
-                small
-                :events="apptList"
-                :time-from="6 * 60"
-                :time-to="23 * 60"
-                :disable-views="['years', 'year', 'day']"
-                :on-event-create="getCreateApptPopUp"
-                :on-event-dblclick="getUpdateApptPopUp"
-                :cell-click-hold="false"
-                :drag-to-create-event="false">
-            </vue-cal>
-            <div :class="$style.addBtnWrapper">
-                <button :class="[$style.addBtn, $style.button]" @click="getCreateApptPopUp">Add Appointment</button>
+        <div :class="$style.calSidebarWrapper">
+            <div :class="$style.cal">
+                <vue-cal 
+                    style="width: 1000px" 
+                    ref="vuecal"
+                    small
+                    :events="apptList"
+                    :time-from="6 * 60"
+                    :time-to="23 * 60"
+                    :disable-views="['years', 'year', 'day']"
+                    :on-event-create="getCreateApptPopUp"
+                    :on-event-dblclick="getUpdateApptPopUp"
+                    :cell-click-hold="false"
+                    :drag-to-create-event="false">
+                </vue-cal>
+                <div :class="$style.addBtnWrapper">
+                    <button :class="[$style.addBtn, $style.button]" @click="getCreateApptPopUp">Add Appointment</button>
+                </div>
             </div>
             <template v-if="hasPopUp">
                 <div :class="$style.popUpWrapper">
                     <div :class="$style.popUp">
-                        <CreateAppt :appt="appt" :hasDeleteBtn="true" :hasCloseBtn="true" @createAppt="createAppointment" @updateAppt="updateApptTitleAndTime" @deleteAppt="findAndDeleteAppt" @closePopUp="closePopUp"></CreateAppt>
+                        <CreateAppt :appt="appt" :isSidebar="true" @createAppt="createAppointment" @updateAppt="updateApptTitleAndTime" @deleteAppt="findAndDeleteAppt" @closePopUp="closePopUp"></CreateAppt>
                     </div>
                 </div>
             </template>

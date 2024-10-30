@@ -1,38 +1,71 @@
 <template>
-    <div :class="$style.addItemContainer">
-        <div v-if="hasCloseBtn">
-            <button :class="$style.closeBtn" @click="closeBtnClicked">&times;</button>
-        </div>
-        <label>
-            Appointment title:
-            <InputText type="text" :class="$style.addItemField" v-model="title" @keyup.enter="sendCreateAppt" ref="TitleInput" data-testid="TitleInput"/>
-        </label>
-        <div :class="$style.startEndWrapper">
+    <!-- Below is the layout for the list view -->
+    <template v-if="!isSidebar">
+        <div :class="$style.addItemContainer">
             <label>
-                Start
-                <DatePicker showTime hourFormat="12" showIcon icondisplay="input" fluid :class="$style.time" v-model="start" data-testid="timePicker"/>
+                Appointment title:
+                <InputText type="text" :class="$style.addItemField" v-model="title" @keyup.enter="sendCreateAppt" ref="TitleInput" data-testid="TitleInput"/>
             </label>
+            <div :class="$style.startEndWrapper">
+                <label>
+                    Start
+                    <DatePicker showTime hourFormat="12" showIcon icondisplay="input" fluid :class="$style.time" v-model="start" data-testid="timePicker"/>
+                </label>
+                <label>
+                    End
+                    <DatePicker :minDate="earliestApptEnd" showTime hourFormat="12" showIcon icondisplay="input" fluid :class="$style.time" v-model="end" data-testid="timePicker"/>
+                </label>
+            </div>
+            <div v-if="!isInEditMode" :class="$style.addBtnWrapper">
+                <button :class="[$style.addButton, $style.button]" @click="sendCreateAppt" data-testid="addItemBtn">
+                    Create appointment
+                </button>
+            </div>
+            <div v-if="isInEditMode" :class="$style.updateBtnWrapper">
+                <button :class="[$style.addButton, $style.button]" @click="sendUpdateAppt" data-testid="updateItemBtn">
+                    Update appointment
+                </button>
+            </div>
+        </div>
+    </template>
+
+    <!-- Below is the layout for the calendar view, where the items will appear in a sidebar -->
+    <template v-else>
+        <div :class="$style.addItemContainerSB">
+            <div>
+                <button :class="$style.closeBtn" @click="closeBtnClicked">&times;</button>
+            </div>
             <label>
-                End
-                <DatePicker :minDate="earliestApptEnd" showTime hourFormat="12" showIcon icondisplay="input" fluid :class="$style.time" v-model="end" data-testid="timePicker"/>
+                Appointment title:
+                <InputText type="text" :class="$style.addItemFieldSB" v-model="title" @keyup.enter="sendCreateAppt" ref="TitleInput" data-testid="TitleInput"/>
             </label>
+            <div :class="$style.startEndWrapperSB">
+                <label>
+                    Start
+                    <DatePicker showTime hourFormat="12" showIcon icondisplay="input" fluid :class="$style.time" v-model="start" data-testid="timePicker"/>
+                </label>
+                <label>
+                    End
+                    <DatePicker :minDate="earliestApptEnd" showTime hourFormat="12" showIcon icondisplay="input" fluid :class="$style.time" v-model="end" data-testid="timePicker"/>
+                </label>
+            </div>
+            <div v-if="!isInEditMode" :class="$style.addBtnWrapper">
+                <button :class="[$style.addButtonSB, $style.button]" @click="sendCreateAppt" data-testid="addItemBtn">
+                    Create appointment
+                </button>
+            </div>
+            <div v-if="isInEditMode" :class="$style.updateBtnWrapper">
+                <button :class="[$style.addButton, $style.button]" @click="sendUpdateAppt" data-testid="updateItemBtn">
+                    Update appointment
+                </button>
+            </div>
+            <div v-if="isInEditMode" :class="$style.deleteBtnWrapper">
+                <button :class="[$style.deleteButton, $style.button]" @click="sendDeleteAppt" data-testid="deleteItemBtn">
+                    Delete appointment
+                </button>
+            </div>
         </div>
-        <div v-if="!isInEditMode" :class="$style.addBtnWrapper">
-            <button :class="[$style.addButton, $style.button]" @click="sendCreateAppt" data-testid="addItemBtn">
-                Create appointment
-            </button>
-        </div>
-        <div v-if="isInEditMode" :class="$style.updateBtnWrapper">
-            <button :class="[$style.addButton, $style.button]" @click="sendUpdateAppt" data-testid="updateItemBtn">
-                Update appointment
-            </button>
-        </div>
-        <div v-if="isInEditMode && hasDeleteBtn" :class="$style.deleteBtnWrapper">
-            <button :class="[$style.deleteButton, $style.button]" @click="sendDeleteAppt" data-testid="deleteItemBtn">
-                Delete appointment
-            </button>
-        </div>
-    </div>
+    </template>
 </template>
 
 <script>
@@ -49,8 +82,7 @@ export default {
     emits: ['createAppt', 'updateAppt', 'deleteAppt'],
     props: {
         appt: Object,
-        hasDeleteBtn: Boolean,
-        hasCloseBtn: Boolean
+        isSidebar: Boolean
     },
     data() {
         return {
