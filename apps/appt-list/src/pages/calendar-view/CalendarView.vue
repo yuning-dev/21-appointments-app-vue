@@ -13,9 +13,9 @@
                 :time-to="23 * 60"
                 :disable-views="['years', 'year', 'day']"
                 :on-event-create="getCreateApptPopUp"
+                :on-event-dblclick="getUpdateApptPopUp"
                 :cell-click-hold="false"
                 :drag-to-create-event="false"
-                editable-events
                 @cell-dblclick="$refs.vuecal.createEvent(
                     $event,
                     120,
@@ -25,7 +25,7 @@
             <template v-if="hasPopUp">
                 <div :class="$style.popUpWrapper">
                     <div :class="$style.popUp">
-                        <CreateAppt :appt="appt" @createAppt="createAppointment"></CreateAppt>
+                        <CreateAppt :appt="appt" @createAppt="createAppointment" @updateAppt="updateApptTitleAndTime" ></CreateAppt>
                     </div>
                 </div>
             </template>
@@ -49,6 +49,7 @@ export default {
     },
     data() {
         return {
+            appt: {},
             hasPopUp: false,
         }
     },
@@ -64,9 +65,13 @@ export default {
         ...mapActions(useApptStore, [
             'fetchApptList',
             'sendAppt',
-
+            'updateTitleAndTime'
         ]),
-        getCreateApptPopUp(event) {
+        getCreateApptPopUp() {
+            this.hasPopUp = true
+        },
+        getUpdateApptPopUp(appt, e) {
+            this.appt = appt
             this.hasPopUp = true
         },
         async createAppointment(title, start, end, completionStatus) {
@@ -74,7 +79,14 @@ export default {
                 await this.sendAppt(title, start, end, completionStatus)
             }
             this.hasPopUp = false
-        }
+        },
+        async updateApptTitleAndTime(updatedTitle, updatedStart, updatedEnd, id) {
+            const apptToUpdate = this.apptList.find((appt) => appt._id === id)
+            console.log(apptToUpdate)
+            const completion = apptToUpdate.completion
+            await this.updateTitleAndTime(updatedTitle, updatedStart, updatedEnd, id, completion)
+            this.hasPopUp = false
+        },
     }
 }
 </script>
