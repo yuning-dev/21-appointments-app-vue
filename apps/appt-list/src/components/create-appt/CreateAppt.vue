@@ -1,54 +1,30 @@
 <template>
-    <!-- Below is for when creating a new appointment -->
-    <template v-if="!appt._id">
-        <div :class="$style.addItemContainer">
+    <div :class="$style.addItemContainer">
+        <label>
+            Appointment title:
+            <InputText type="text" :class="$style.addItemField" v-model="title" @keyup.enter="sendCreateAppt" ref="TitleInput" data-testid="TitleInput"/>
+        </label>
+        <div :class="$style.startEndWrapper">
             <label>
-                Appointment title:
-                <InputText type="text" :class="$style.addItemField" v-model="newTitle" @keyup.enter="createAppt" ref="TitleInput" data-testid="TitleInput"/>
+                Start
+                <DatePicker showTime hourFormat="12" showIcon icondisplay="input" fluid :class="$style.time" v-model="start" data-testid="timePicker"/>
             </label>
-            <div :class="$style.startEndWrapper">
-                <label>
-                    Start
-                    <DatePicker showTime hourFormat="12" showIcon icondisplay="input" fluid :class="$style.time" v-model="newStart" data-testid="timePicker"/>
-                </label>
-                <label>
-                    End
-                    <DatePicker :minDate="earliestNewApptEnd" showTime hourFormat="12" showIcon icondisplay="input" fluid :class="$style.time" v-model="newEnd" data-testid="timePicker"/>
-                </label>
-            </div>
-            <div :class="$style.addBtnWrapper">
-                <button :class="[$style.addButton, $style.button]" @click="sendCreateAppt" data-testid="addItemBtn">
-                    Create appointment
-                </button>
-            </div>
-        </div>
-    </template>
-
-    <!-- Below is for when updating an appointment -->
-    <template v-else>
-        <div :class="$style.addItemContainer">
             <label>
-                Appointment title:
-                <InputText type="text" v-model="editedTitle" :class="$style.addItemField"  @keyup.enter="createAppt" ref="TitleInput" data-testid="TitleInput"/>
+                End
+                <DatePicker :minDate="earliestApptEnd" showTime hourFormat="12" showIcon icondisplay="input" fluid :class="$style.time" v-model="end" data-testid="timePicker"/>
             </label>
-            <div :class="$style.startEndWrapper">
-                <label>
-                    Start
-                    <DatePicker v-model="editedStart" showTime hourFormat="12" showIcon icondisplay="input" fluid :class="$style.time" data-testid="timePicker"/>
-                </label>
-                <label>
-                    End
-                    <DatePicker v-model="editedEnd" :minDate="earliestUpdatedApptEnd" showTime hourFormat="12" showIcon icondisplay="input" fluid :class="$style.time" data-testid="timePicker"/>
-                </label>
-            </div>
-            <div :class="$style.addBtnWrapper">
-                <button :class="[$style.addButton, $style.button]" @click="sendUpdateAppt" data-testid="updateItemBtn">
-                    Update appointment
-                </button>
-            </div>
         </div>
-    </template>
-
+        <div v-if="!isInEditMode" :class="$style.addBtnWrapper">
+            <button :class="[$style.addButton, $style.button]" @click="sendCreateAppt" data-testid="addItemBtn">
+                Create appointment
+            </button>
+        </div>
+        <div v-if="isInEditMode" :class="$style.addBtnWrapper">
+            <button :class="[$style.addButton, $style.button]" @click="sendUpdateAppt" data-testid="updateItemBtn">
+                Update appointment
+            </button>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -68,49 +44,37 @@ export default {
     },
     data() {
         return {
-            //newTitle etc is the default when creating new appointments
-            newTitle: '',
-            newStart: '',
-            newEnd: '',
+            title: this.appt?.title,
+            start: this.appt?.start,
+            end: this.appt?.end,
             isCompleted: false,
-            //editedTitle etc: the original value is the current value before editing
-            //after editing it carries the updated value that is sent to the api request 
-            editedTitle: this.appt?.title,
-            editedStart: this.appt?.start,
-            editedEnd: this.appt.end,
         }
     },
     watch: {
-        newEnd(newEnd, oldEnd) {
-            if (newEnd < addMinutes(this.newStart, 15)) {
-                this.newEnd = addMinutes(this.newStart, 15)
+        end(newEnd, oldEnd) {
+            if (newEnd < addMinutes(this.start, 15)) {
+                this.end = addMinutes(this.start, 15)
             }
         },
-        editedEnd(newEditedEnd, oldEditedEnd) {
-            if (newEditedEnd < addMinutes(this.editedStart, 15)) {
-                this.editedEnd = addMinutes(this.editedStart, 15)
-            }
-        }
     },
     computed: {
-        earliestNewApptEnd() {
-            return addMinutes(this.newStart, 15)
-
+        isInEditMode() {
+            return this.appt._id
         },
-        earliestUpdatedApptEnd() {
-            return addMinutes(this.editedStart, 15)
+        earliestApptEnd() {
+            return addMinutes(this.start, 15)
         }
     },
     methods: {
         sendCreateAppt() {
-            if (this.newEnd >= addMinutes(this.newStart, 15)) {
-                this.$emit('createAppt', this.newTitle, this.newStart, this.newEnd, this.isCompleted)
-                this.newTitle = ''
+            if (this.end >= addMinutes(this.start, 15)) {
+                this.$emit('createAppt', this.title, this.start, this.end, this.isCompleted)
+                this.title = ''
             }
         },
         sendUpdateAppt() {
-            if (this.editedEnd >= addMinutes(this.editedStart, 15)) {
-                this.$emit('updateAppt', this.editedTitle, this.editedStart, this.editedEnd, this.appt._id)
+            if (this.end >= addMinutes(this.start, 15)) {
+                this.$emit('updateAppt', this.title, this.start, this.end, this.appt._id)
                 this.$emit('closeModal')
             }
         },
