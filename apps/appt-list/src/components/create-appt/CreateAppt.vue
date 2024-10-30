@@ -59,7 +59,7 @@ export default {
     },
     computed: {
         isInEditMode() {
-            return this.appt._id
+            return this.appt?._id
         },
         earliestApptEnd() {
             return addMinutes(this.start, 15)

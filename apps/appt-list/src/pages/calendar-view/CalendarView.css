@@ -1,0 +1,36 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 5px 30px;
+}
+
+.card {
+    margin-top: 20px;
+    width: 1000px;
+    border: 1px solid #7743db;
+    border-radius: 10px;
+    padding: 15px;
+    background: #e9dffc;
+}
+
+.cal {
+    height: 500px;
+}
+
+.popUpWrapper {
+    width: 1000px;
+}
+
+.popUp {
+    margin-right: auto;
+    margin-left: auto;
+    padding-top: 10px;
+    padding-bottom: 30px;
+    border: 1px solid #9774d9;
+    background: #f3edff;
+    border-radius: 5px;
+    width: 700px;
+}
