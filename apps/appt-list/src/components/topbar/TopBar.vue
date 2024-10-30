@@ -4,6 +4,9 @@
             <router-link :class="$style.item" :to="{ name: 'appt-list' }">
                 List view
             </router-link>
+            <router-link :class="$style.item" :to="{ name: 'calendar-view' }" >
+                Calendar view
+            </router-link>
             <router-link :class="$style.item" :to="{ name: 'test' }">
                 Test page
             </router-link>

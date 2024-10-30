@@ -16,6 +16,7 @@
     "primevue": "^4.1.1",
     "uuid": "^10.0.0",
     "vue": "^3.3.4",
+    "vue-cal": "^4.10.0",
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
