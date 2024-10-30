@@ -23,7 +23,7 @@
         <template v-else>
             <ModalWindow @closeModal="closeModal">
                 <template v-slot>
-                    <CreateApp :appt="appt" @updateAppt="sendUpdateAppt" @closeModal="closeModal"/>
+                    <CreateApp :appt="appt" @updateAppt="sendUpdateAppt" @deleteAppt="sendDeleteAppt" @closeModal="closeModal"/>
                 </template>
             </ModalWindow>
         </template>
@@ -98,6 +98,10 @@ export default {
         },
         sendUpdateAppt(title, start, end, _id) {
             this.$emit('updateAppt', title, start, end, _id)
+            this.isInEditMode = false
+        },
+        sendDeleteAppt(_id) {
+            this.$emit('delete', _id)
             this.isInEditMode = false
         },
         closeModal() {

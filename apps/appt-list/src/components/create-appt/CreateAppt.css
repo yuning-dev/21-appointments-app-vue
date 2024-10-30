@@ -17,6 +17,19 @@
     margin-right: auto;
 }
 
+.deleteBtnWrapper {
+    display: flex;
+    justify-content: end;
+}
+
+.deleteButton {
+    margin-bottom: 10px;
+}
+
+.deleteButton:hover {
+    background: rgb(255, 162, 0);
+}
+
 .addItemField {
     width: 418px;
     margin-left: 10px;

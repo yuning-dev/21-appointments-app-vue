@@ -24,8 +24,8 @@
             </vue-cal>
             <template v-if="hasPopUp">
                 <div :class="$style.popUpWrapper">
-                    <div :class="$style.popUp">
-                        <CreateAppt :appt="appt" @createAppt="createAppointment" @updateAppt="updateApptTitleAndTime" ></CreateAppt>
+                    <div :class="$style.popUp" @focusout.self="closePopUp">
+                        <CreateAppt :appt="appt" @createAppt="createAppointment" @updateAppt="updateApptTitleAndTime" @deleteAppt="findAndDeleteAppt"></CreateAppt>
                     </div>
                 </div>
             </template>
@@ -45,7 +45,7 @@ export default {
     name: 'CalendarView',
     components: {
         VueCal,
-        CreateAppt
+        CreateAppt,
     },
     data() {
         return {
@@ -65,8 +65,12 @@ export default {
         ...mapActions(useApptStore, [
             'fetchApptList',
             'sendAppt',
-            'updateTitleAndTime'
+            'updateTitleAndTime',
+            'deleteAppt'
         ]),
+        closePopUp() {
+            this.hasPopUp = false
+        },
         getCreateApptPopUp() {
             this.hasPopUp = true
         },
@@ -87,6 +91,10 @@ export default {
             await this.updateTitleAndTime(updatedTitle, updatedStart, updatedEnd, id, completion)
             this.hasPopUp = false
         },
+        async findAndDeleteAppt(id) {
+            await this.deleteAppt(id)
+            this.hasPopUp = false
+        }
     }
 }
 </script>

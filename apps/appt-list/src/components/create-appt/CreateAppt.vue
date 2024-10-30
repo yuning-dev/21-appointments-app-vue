@@ -1,5 +1,10 @@
 <template>
     <div :class="$style.addItemContainer">
+        <div v-if="isInEditMode" :class="$style.deleteBtnWrapper">
+            <button :class="[$style.deleteButton, $style.button]" @click="sendDeleteAppt" data-testid="deleteItemBtn">
+                Delete appointment
+            </button>
+        </div>
         <label>
             Appointment title:
             <InputText type="text" :class="$style.addItemField" v-model="title" @keyup.enter="sendCreateAppt" ref="TitleInput" data-testid="TitleInput"/>
@@ -19,7 +24,7 @@
                 Create appointment
             </button>
         </div>
-        <div v-if="isInEditMode" :class="$style.addBtnWrapper">
+        <div v-if="isInEditMode" :class="$style.updateBtnWrapper">
             <button :class="[$style.addButton, $style.button]" @click="sendUpdateAppt" data-testid="updateItemBtn">
                 Update appointment
             </button>
@@ -38,7 +43,7 @@ export default {
         InputText,
         DatePicker
     },
-    emits: ['createAppt', 'updateAppt'],
+    emits: ['createAppt', 'updateAppt', 'deleteAppt'],
     props: {
         appt: Object
     },
@@ -78,6 +83,9 @@ export default {
                 this.$emit('closeModal')
             }
         },
+        sendDeleteAppt() {
+            this.$emit('deleteAppt', this.appt._id)
+        }
     }
 }
 </script>
