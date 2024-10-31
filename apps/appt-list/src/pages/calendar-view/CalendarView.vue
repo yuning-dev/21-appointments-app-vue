@@ -21,6 +21,10 @@
                     :on-event-dblclick="getUpdateApptPopUp"
                     :cell-click-hold="false"
                     :drag-to-create-event="false">
+                    <!-- Add slot content for your events -->
+                     <div :class="$style.eventCell">
+                        
+                     </div>
                 </vue-cal>
                 <div :class="$style.addBtnWrapper">
                     <button :class="[$style.addBtn, $style.button]" @click="getCreateApptPopUp">Add Appointment</button>
@@ -29,33 +33,11 @@
             <template v-if="hasPopUp">
                 <div :class="$style.popUpWrapper">
                     <div :class="$style.popUp">
-                        <CreateAppt :appt="appt" :isSidebar="true" @createAppt="createAppointment" @updateAppt="updateAppt" @deleteAppt="findAndDeleteAppt" @updateCompletion="updateApptCompletion" @closePopUp="closePopUp"></CreateAppt>
+                        <CreateAppt :appt="appt" :isSidebar="true" @createAppt="createAppointment" @updateAppt="updateAppt" @deleteAppt="findAndDeleteAppt" @closePopUp="closePopUp"></CreateAppt>
                     </div>
                 </div>
             </template>
         </div>
-        <section :class="[$style.completedApptsSection, $style.card]">
-            <div :class="$style.listHeader">
-                <h2>
-                    Done and dusted
-                </h2>
-                <button :class="[$style.button, $style.deleteCompletedBtn]" @click="deleteCompletedBtnClicked" data-testid="deleteCompletedBtn">Delete completed appointments</button>
-            </div>
-            <template v-for="appt in completedApptsList">
-                <Appointment :appt="appt" @delete="findAndDeleteAppt" @updateAppt="updateApptTitleAndTime" @moveToActive="moveApptToActive"/>
-            </template>
-        </section>
-        <template v-if="modalDeleteCompleted">
-            <ModalWindow @closeModal="closeModal">
-                <template v-slot>
-                    Are you sure you want to delete all the completed appointments?
-                    <div :class="$style.modalBtnContainer">
-                        <button :class="$style.button" @click="deleteCompletedAppts" data-testid="yesBtn">Yes</button>
-                        <button :class="[$style.button, $style.cancelButton]" @click="closeModal">Cancel</button>
-                    </div>
-                </template>
-            </ModalWindow>
-        </template>
     </div>
 </template>
 
@@ -66,22 +48,17 @@ import { mapWritableState, mapActions } from 'pinia';
 import { useApptStore } from '../../stores/ApptStore';
 
 import CreateAppt from '../../components/create-appt/CreateAppt.vue';
-import Appointment from '../../components/appointment/Appointment.vue'
-import ModalWindow from '../../components/modal-window/ModalWindow.vue';
 
 export default {
     name: 'CalendarView',
     components: {
         VueCal,
         CreateAppt,
-        Appointment,
-        ModalWindow
     },
     data() {
         return {
             appt: {},
             hasPopUp: false,
-            modalDeleteCompleted: false
         }
     },
     async mounted() {
@@ -99,7 +76,6 @@ export default {
             'sendAppt',
             'updateApptDetails',
             'deleteAppt',
-            'updateCompletionStatus',
             'deleteMultipleItems'
         ]),
         closePopUp() {
@@ -112,9 +88,6 @@ export default {
         getUpdateApptPopUp(appt, e) {
             this.appt = appt
             this.hasPopUp = true
-        },
-        closeModal() {
-            this.modalDeleteCompleted = false
         },
         async createAppointment(title, start, end, completionStatus) {
             if (title !== '' && start !== '' && end !== '') {
@@ -130,16 +103,6 @@ export default {
             await this.deleteAppt(id)
             this.hasPopUp = false
         },
-        async updateApptCompletion(completionStatus, id) {
-            await this.updateCompletionStatus(completionStatus, id)
-        },
-        async moveApptToActive(id) {
-            await this.updateApptCompletion(false, id)
-        },
-        async deleteCompletedAppts() {
-            await this.deleteMultipleItems('completed')
-            this.closeModal()
-        }
     }
 }
 </script>
