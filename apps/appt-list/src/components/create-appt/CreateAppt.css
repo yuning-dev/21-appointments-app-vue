@@ -30,19 +30,6 @@
     margin-right: auto;
 }
 
-.deleteBtnWrapper {
-    display: flex;
-    justify-content: end;
-}
-
-.deleteButton {
-    margin-bottom: 10px;
-}
-
-.deleteButton:hover {
-    background: rgb(255, 162, 0);
-}
-
 .addItemField {
     width: 418px;
     margin-left: 10px;
@@ -88,6 +75,10 @@
     flex-direction: column;
 }
 
+.markCompletion {
+    margin-top: 10px;
+}
+
 .addButtonSB {
     margin-top: 20px;
     color: 	#404040;
@@ -101,10 +92,10 @@
     border-color: #a0e9ff;
 }
 
-.deleteBtnWrapper {
+/* .deleteBtnWrapper {
     display: flex;
     justify-content: end;
-}
+} */
 
 .deleteButton {
     margin-bottom: 10px;

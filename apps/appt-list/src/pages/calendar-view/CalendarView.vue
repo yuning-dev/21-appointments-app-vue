@@ -29,7 +29,7 @@
             <template v-if="hasPopUp">
                 <div :class="$style.popUpWrapper">
                     <div :class="$style.popUp">
-                        <CreateAppt :appt="appt" :isSidebar="true" @createAppt="createAppointment" @updateAppt="updateApptTitleAndTime" @deleteAppt="findAndDeleteAppt" @closePopUp="closePopUp"></CreateAppt>
+                        <CreateAppt :appt="appt" :isSidebar="true" @createAppt="createAppointment" @updateAppt="updateApptTitleAndTime" @deleteAppt="findAndDeleteAppt" @updateCompletion="updateApptCompletion" @closePopUp="closePopUp"></CreateAppt>
                     </div>
                 </div>
             </template>
@@ -70,7 +70,8 @@ export default {
             'fetchApptList',
             'sendAppt',
             'updateTitleAndTime',
-            'deleteAppt'
+            'deleteAppt',
+            'updateCompletionStatus'
         ]),
         closePopUp() {
             this.hasPopUp = false
@@ -99,6 +100,9 @@ export default {
         async findAndDeleteAppt(id) {
             await this.deleteAppt(id)
             this.hasPopUp = false
+        },
+        async updateApptCompletion(completionStatus, id) {
+            await this.updateCompletionStatus(completionStatus, id)
         }
     }
 }

@@ -48,6 +48,17 @@
                     End
                     <DatePicker :minDate="earliestApptEnd" showTime hourFormat="12" showIcon icondisplay="input" fluid :class="$style.time" v-model="end" data-testid="timePicker"/>
                 </label>
+                <template v-if="isInEditMode">
+                    <label :class="$style.markCompletion">
+                        Mark as completed
+                        <template v-if="!isCompleted">
+                            <font-awesome-icon data-testid="completedUnticked" icon="fa-regular fa-square" size="lg" @click="updateCompletionStatus"/>
+                        </template>
+                        <template v-if="isCompleted">
+                            <font-awesome-icon data-testid="completedTicked" icon="fa-regular fa-square-check" size="lg" @click="updateCompletionStatus"/>
+                        </template>
+                    </label>
+                </template>
             </div>
             <div v-if="!isInEditMode" :class="$style.addBtnWrapper">
                 <button :class="[$style.addButtonSB, $style.button]" @click="sendCreateAppt" data-testid="addItemBtn">
@@ -89,7 +100,7 @@ export default {
             title: this.appt?.title,
             start: this.appt?.start,
             end: this.appt?.end,
-            isCompleted: false,
+            isCompleted: this.appt?.completion,
         }
     },
     watch: {
@@ -110,7 +121,7 @@ export default {
     methods: {
         sendCreateAppt() {
             if (this.end >= addMinutes(this.start, 15)) {
-                this.$emit('createAppt', this.title, this.start, this.end, this.isCompleted)
+                this.$emit('createAppt', this.title, this.start, this.end, false)
                 this.title = ''
             }
         },
@@ -125,6 +136,10 @@ export default {
         },
         closeBtnClicked() {
             this.$emit('closePopUp')
+        },
+        updateCompletionStatus() {
+            this.isCompleted = !this.isCompleted
+            this.$emit('updateCompletion', this.isCompleted, this.appt._id)
         }
     }
 }
