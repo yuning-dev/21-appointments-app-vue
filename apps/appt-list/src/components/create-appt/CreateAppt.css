@@ -56,6 +56,7 @@
 
 /* Below is for sidebar configuration */
 .addItemContainerSB {
+    height: 688px;
     margin-top: 20px;
     display: flex;
     flex-direction: column;
@@ -76,11 +77,11 @@
 }
 
 .markCompletion {
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
 .addButtonSB {
-    margin-top: 20px;
+    margin-top: 30px;
     color: 	#404040;
     background: #cdf5fd;
     border: 1px solid #4ecaec;
@@ -92,13 +93,8 @@
     border-color: #a0e9ff;
 }
 
-/* .deleteBtnWrapper {
-    display: flex;
-    justify-content: end;
-} */
-
-.deleteButton {
-    margin-bottom: 10px;
+.deleteBtnWrapper {
+    margin-top: 15px;
 }
 
 .deleteButton:hover {
