@@ -7,7 +7,7 @@
             <p :class="$style.intro">
                 With our snazzy appointment app, managing appointments has never been easier. Begin by entering your appointment details below.
             </p>
-            <CreateAppt :appt="appt" @createAppt="createAppointment" @updateAppt="updateApptTitleAndTime" />
+            <CreateAppt :appt="appt" @createAppt="createAppointment" @updateAppt="updateAppt" />
         </section>
         <section :class="[$style.upcomingApptsSection, $style.card]">
             <div :class="$style.listHeader">
@@ -17,7 +17,7 @@
                 <button :class="$style.button" @click="deleteUpcomingBtnClicked" data-testid="deleteUpcomingBtn">Delete upcoming apppointments</button>
             </div>
             <template v-for="appt in upcomingApptsList">
-                <Appointment :appt="appt" @editMode="" @delete="findAndDeleteAppt" @updateAppt="updateApptTitleAndTime" @moveToCompleted="findApptToMoveToCompleted" />
+                <Appointment :appt="appt" @editMode="" @delete="findAndDeleteAppt" @updateAppt="updateAppt" @moveToCompleted="findApptToMoveToCompleted" />
             </template>
         </section>
         <template v-if="modalDeleteUpcoming">
@@ -39,7 +39,7 @@
                 <button :class="$style.button" @click="deletePastBtnClicked" data-testid="deletePastBtn">Delete past apppointments</button>
             </div>
             <template v-for="appt in pastApptsList">
-                <Appointment :appt="appt" @delete="findAndDeleteAppt" @updateAppt="updateApptTitleAndTime" @moveToCompleted="findApptToMoveToCompleted" />
+                <Appointment :appt="appt" @delete="findAndDeleteAppt" @updateAppt="updateAppt" @moveToCompleted="findApptToMoveToCompleted" />
             </template>
         </section>
         <template v-if="modalDeletePast">
@@ -61,7 +61,7 @@
                 <button :class="$style.button" @click="deleteCompletedBtnClicked" data-testid="deleteCompletedBtn">Delete completed appointments</button>
             </div>
             <template v-for="appt in completedApptsList">
-                <Appointment :appt="appt" @delete="findAndDeleteAppt" @updateAppt="updateApptTitleAndTime" @moveToActive="findApptToMoveToActive"/>
+                <Appointment :appt="appt" @delete="findAndDeleteAppt" @updateAppt="updateAppt" @moveToActive="findApptToMoveToActive"/>
             </template>
         </section>
         <template v-if="modalDeleteCompleted">
@@ -148,10 +148,9 @@ export default {
             'fetchApptList',
             'sendAppt',
             'deleteAppt',
-            'updateTitleAndTime',
+            'updateApptDetails',
             'updateCompletionStatus',
             'deleteMultipleItems',
-            'createSession'
         ]),
         async createAppointment(title, start, end, completionStatus) {
             if (title !== '' && start !== '' && end !== '') {
@@ -162,11 +161,8 @@ export default {
         // focusAddTitleInput() {
         //     this.$refs.TitleInput.focus()
         // },
-        async updateApptTitleAndTime(updatedTitle, updatedStart, updatedEnd, id) {
-            const apptToUpdate = this.apptList.find((appt) => appt._id === id)
-            console.log(apptToUpdate)
-            const completion = apptToUpdate.completion
-            await this.updateTitleAndTime(updatedTitle, updatedStart, updatedEnd, id, completion)
+        async updateAppt(updatedTitle, updatedStart, updatedEnd, updatedCompletion, id) {
+            await this.updateApptDetails(updatedTitle, updatedStart, updatedEnd, updatedCompletion, id)
         },
         async findAndDeleteAppt(id) {
             await this.deleteAppt(id)

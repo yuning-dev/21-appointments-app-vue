@@ -127,7 +127,7 @@ export default {
         },
         sendUpdateAppt() {
             if (this.end >= addMinutes(this.start, 15)) {
-                this.$emit('updateAppt', this.title, this.start, this.end, this.appt._id)
+                this.$emit('updateAppt', this.title, this.start, this.end, this.isCompleted, this.appt._id)
                 this.$emit('closeModal')
             }
         },
@@ -139,7 +139,6 @@ export default {
         },
         updateCompletionStatus() {
             this.isCompleted = !this.isCompleted
-            this.$emit('updateCompletion', this.isCompleted, this.appt._id)
         }
     }
 }

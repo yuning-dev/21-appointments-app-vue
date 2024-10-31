@@ -31,8 +31,7 @@
         <div>
             <button data-testid="completedBtn" :class="$style.button" v-if="!appt.completion && !isInEditMode" @click="moveToCompletedButtonClicked">Completed</button>
             <button data-testid="makeActiveBtn" :class="$style.button" v-if="appt.completion && !isInEditMode" @click="makeActiveButtonClicked">Make active</button>
-            <button data-testid="editBtn" :class="$style.button" v-if="!appt.completion && !isInEditMode" @click="editButtonClicked">Edit</button>
-            <button data-testid="editTitleBtn" :class="$style.button" v-if="appt.completion && !isInEditMode" @click="editButtonClicked">Edit title</button>
+            <button data-testid="editBtn" :class="$style.button" v-if="!isInEditMode" @click="editButtonClicked">Edit</button>
             <button data-testid="deleteBtn" :class="$style.button" v-if="!isInEditMode" @click="deleteButtonClicked">Delete</button>
         </div>
     </div>
@@ -96,8 +95,8 @@ export default {
             this.isInEditMode = true
             this.$emit('editMode', this.editedTitle, this.editedStart, this.editedEnd, this.appt._id)
         },
-        sendUpdateAppt(title, start, end, _id) {
-            this.$emit('updateAppt', title, start, end, _id)
+        sendUpdateAppt(title, start, end, completion, _id) {
+            this.$emit('updateAppt', title, start, end, completion, _id)
             this.isInEditMode = false
         },
         sendDeleteAppt(_id) {

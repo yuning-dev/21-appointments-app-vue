@@ -48,12 +48,12 @@ export const useApptStore = defineStore('appts', {
             await axios.delete('/api/appointment/' + id)
             await this.fetchApptList()
         },
-        async updateTitleAndTime(updatedTitle, updatedStart, updatedEnd, id, completionStatus) {
+        async updateApptDetails(updatedTitle, updatedStart, updatedEnd, updatedCompletion, id) {
             await axios.put('/api/appointment/' + id, {
                 title: updatedTitle,
                 start: updatedStart,
                 end: updatedEnd,
-                completion: completionStatus
+                completion: updatedCompletion
             })
             await this.fetchApptList()
         },

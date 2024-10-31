@@ -66,3 +66,12 @@
     border-radius: 5px;
     width: 325px;
 }
+
+.completedApptsSection {
+    margin-top: 50px;
+}
+
+.listHeader {
+    display: flex;
+    justify-content: space-between;
+}
