@@ -11,10 +11,11 @@
             <div :class="$style.calSidebarWrapper">
                 <div :class="$style.cal">
                     <vue-cal 
-                        :class="$style.vuecal"
+                        class="vuecal--blue-theme"
+                        :class="$style.testCal"
                         ref="vuecal"
                         small
-                        :events="apptList"
+                        :events="formattedAppts"
                         :time-from="6 * 60"
                         :time-to="23 * 60"
                         :disable-views="['years', 'year', 'day']"
@@ -57,12 +58,30 @@ export default {
     },
     async mounted() {
         await this.fetchApptList()
+        console.log(this.formattedAppts)
     },
     computed: {
         ...mapWritableState(useApptStore, [
             'apptList',
-            'completedApptsList'
         ]),
+        formattedAppts() {
+            return this.apptList.map(appt => {s
+                let apptClass
+                const timeNow = new Date()
+                if (appt.completion) {
+                    apptClass = this.$style['completedAppt']
+                } else if (appt.end < timeNow) {
+                    apptClass = this.$style['pastAppt']
+                } else {
+                    apptClass = this.$style['upcomingAppt']
+                }
+
+                return {
+                        ...appt,
+                        class: apptClass
+                }
+            })
+        }
     },
     methods: {
         ...mapActions(useApptStore, [

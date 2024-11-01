@@ -35,10 +35,6 @@
     height: 750px;
 }
 
-.vuecal {
-    width: 1000px;
-}
-
 .addBtnWrapper {
     width: 1000px;
     display: flex;
@@ -74,4 +70,23 @@
 .listHeader {
     display: flex;
     justify-content: space-between;
+}
+
+/* calendar events css below */
+
+.completedAppt {
+    background: rgb(226, 250, 226);
+    border: 1px double rgb(160, 248, 160);
+}
+
+.pastAppt {
+    background: rgb(229, 229, 229);
+}
+
+.upcomingAppt {
+    background: rgb(225, 241, 255);
+}
+
+.testCal {
+    background: white;
 }
