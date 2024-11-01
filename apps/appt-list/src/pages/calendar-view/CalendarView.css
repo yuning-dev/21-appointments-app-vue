@@ -35,26 +35,58 @@
     height: 750px;
 }
 
-.addBtnWrapper {
+.legendAddBtnWrapper {
     width: 1000px;
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
 }
+
+.legendWrapper {
+    margin-top: 10px;
+    display: flex;
+    gap: 25px;
+}
+
+.legend {
+    position: relative;
+    top: 3px;
+    display: inline-block;
+    margin-left: 3px;
+    width: 60px;
+    height: 15px;
+}
+
+.completedLegend {
+    background: rgb(226, 250, 226);
+    border: 2px double rgb(160, 248, 160);
+}
+
+.pastLegend {
+    background: rgb(229, 229, 229);
+}
+
+.upcomingLegend {
+    background: rgb(225, 241, 255);
+}
+
 
 .addBtn {
     margin-top: 10px;
-    color: 	#404040;
-    background: #cdf5fd;
-    border: 1px solid #4ecaec;
+    padding: 6px 12px;
+    font-size: 1.1em;
+    color: 	white;
+    background: #1ca9c9;
+    border: 1px solid #15859e;
 }
 
 .addBtn:hover {
-    color: 	#404040;
-    background: #a0e9ff;
-    border-color: #a0e9ff;
+    cursor: pointer;
+    background: #15859e;
+    border-color: #15859e;
 }
 
 .popUp {
+    margin-left: 15px;
     padding-top: 10px;
     padding-bottom: 30px;
     border: 1px solid #9774d9;

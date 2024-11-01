@@ -24,7 +24,12 @@
                         :cell-click-hold="false"
                         :drag-to-create-event="false">
                     </vue-cal>
-                    <div :class="$style.addBtnWrapper">
+                    <div :class="$style.legendAddBtnWrapper">
+                        <div :class="$style.legendWrapper">
+                            <span>Done <div :class="[$style.completedLegend, this.$style.legend]"></div></span>
+                            <span>Past <div :class="[$style.pastLegend, this.$style.legend]"></div></span>
+                            <span>Upcoming <div :class="[$style.upcomingLegend, this.$style.legend]"></div></span>
+                        </div>
                         <button :class="[$style.addBtn, $style.button]" @click="getCreateApptPopUp">Add Appointment</button>
                     </div>
                 </div>
