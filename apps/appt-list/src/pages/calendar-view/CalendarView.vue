@@ -39,6 +39,7 @@
 <script>
 import VueCal from 'vue-cal'
 import 'vue-cal/dist/vuecal.css'
+import { addHours, subHours, subDays } from 'date-fns'
 import { mapWritableState, mapActions } from 'pinia';
 import { useApptStore } from '../../stores/ApptStore';
 
@@ -54,10 +55,33 @@ export default {
         return {
             appt: {},
             hasPopUp: false,
+            // testNow: new Date(), 
+            // testEvents: [{
+            //     title: 'have chocolate',
+            //     start: this.testNow,
+            //     end: addHours(this.testNow, 1),
+            //     completion: false,
+            //     class: this.$style['upcomingAppt']
+            // },
+            // {
+            //     title: 'read a book',
+            //     start: subDays(this.testNow, 1),
+            //     end: subHours(this.testNow, 22),
+            //     completion: false,
+            //     class: this.$style['pastAppt']
+            // },
+            // {
+            //     title: 'feed birds',
+            //     start: subDays(this.testNow, 2),
+            //     end: subHours(this.testNow, 46),
+            //     completion: true,
+            //     class: this.$style['completedAppt']
+            // }]
         }
     },
     async mounted() {
         await this.fetchApptList()
+        console.log(this.testNow)
         console.log(this.formattedAppts)
     },
     computed: {
@@ -65,7 +89,7 @@ export default {
             'apptList',
         ]),
         formattedAppts() {
-            return this.apptList.map(appt => {s
+            return this.apptList.map(appt => {
                 let apptClass
                 const timeNow = new Date()
                 if (appt.completion) {

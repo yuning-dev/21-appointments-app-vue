@@ -76,7 +76,7 @@
 
 .completedAppt {
     background: rgb(226, 250, 226);
-    border: 1px double rgb(160, 248, 160);
+    border: 2px double rgb(160, 248, 160);
 }
 
 .pastAppt {

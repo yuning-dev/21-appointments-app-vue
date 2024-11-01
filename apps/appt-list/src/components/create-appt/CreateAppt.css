@@ -93,8 +93,21 @@
     border-color: #a0e9ff;
 }
 
-.deleteBtnWrapper {
-    margin-top: 15px;
+.updateDeleteBtnsWrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.updateButtonSB {
+    color: 	#404040;
+    background: #cdf5fd;
+    border: 1px solid #4ecaec;
+}
+
+.updateButtonSB:hover {
+    color: 	#404040;
+    background: #a0e9ff;
+    border-color: #a0e9ff;
 }
 
 .deleteButton:hover {

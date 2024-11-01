@@ -65,14 +65,12 @@
                     Create appointment
                 </button>
             </div>
-            <div v-if="isInEditMode" :class="$style.updateBtnWrapper">
-                <button :class="[$style.addButton, $style.button]" @click="sendUpdateAppt" data-testid="updateItemBtn">
-                    Update appointment
+            <div v-if="isInEditMode" :class="$style.updateDeleteBtnsWrapper">
+                <button :class="[$style.updateButtonSB, $style.button]" @click="sendUpdateAppt" data-testid="updateItemBtn">
+                    Update
                 </button>
-            </div>
-            <div v-if="isInEditMode" :class="$style.deleteBtnWrapper">
                 <button :class="[$style.deleteButton, $style.button]" @click="sendDeleteAppt" data-testid="deleteItemBtn">
-                    Delete appointment
+                    Delete
                 </button>
             </div>
         </div>
