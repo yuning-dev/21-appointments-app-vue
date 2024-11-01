@@ -2,10 +2,10 @@
     <div :class="$style.wrapper">
         <div :class="$style.card">
             In the Calendar view:
-            <br>
-            - to create an appointment, click the Add Appointment button at the bottom right of the calendar
-            <br>
-            - to update an appointment, double click it
+            <ul>
+                <li>to create an appointment, click the Add Appointment button at the bottom right of the calendar</li>
+                <li>to update an appointment, double click it</li>
+            </ul>
         </div>
         <div :class="$style.mainWrapper">
             <div :class="$style.calSidebarWrapper">
@@ -60,7 +60,6 @@ export default {
         return {
             appt: {},
             hasPopUp: false,
-            // testNow: new Date(), 
             // testEvents: [{
             //     title: 'have chocolate',
             //     start: this.testNow,
@@ -110,7 +109,10 @@ export default {
                         class: apptClass
                 }
             })
-        }
+        },
+        // testNow() {
+        //     return new Date()
+        // }
     },
     methods: {
         ...mapActions(useApptStore, [

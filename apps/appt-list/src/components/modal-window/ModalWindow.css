@@ -1,4 +1,5 @@
 .modal {
+    /* border-radius: 20px; */
     position: fixed;
     z-index: 1;
     left: 0;
@@ -6,7 +7,8 @@
     width: 100%;
     height: 100%;
     /* overflow: auto; */
-    background-color: rgba(0,0,0,0.4);
+    /* background-color: rgba(0,0,0,0.4); */
+    background-color: rgba(233, 223, 252, 0.5) ;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,7 +16,8 @@
 
 .modalContent {
     border: 1px solid #7743db;
-    text-align: center;
+    /* width: 400px; */
+    /* text-align: center; */
     background-color: rgba(254,254,254);
     padding: 10px;
 }

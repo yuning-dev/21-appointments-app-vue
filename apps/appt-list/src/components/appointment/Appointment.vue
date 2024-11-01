@@ -23,7 +23,9 @@
         <template v-else>
             <ModalWindow @closeModal="closeModal">
                 <template v-slot>
-                    <CreateApp :appt="appt" :isSidebar="false" @updateAppt="sendUpdateAppt" @deleteAppt="sendDeleteAppt" @closeModal="closeModal"/>
+                    <div :class="$style.modalContentWrapper">
+                        <CreateApp :appt="appt" :isSidebar="false" @updateAppt="sendUpdateAppt" @deleteAppt="sendDeleteAppt" @closeModal="closeModal"/>
+                    </div>
                 </template>
             </ModalWindow>
         </template>

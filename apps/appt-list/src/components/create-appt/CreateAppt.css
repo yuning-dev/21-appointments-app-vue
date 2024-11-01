@@ -58,13 +58,17 @@
     border-color: #a0e9ff;
 }
 
+.updateBtnWrapper {
+    margin-top: 10px;
+}
+
 /* Below is for sidebar configuration */
 .addItemContainerSB {
     height: 688px;
     margin-top: 20px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
     max-width: 250px;
     margin-left: auto;
     margin-right: auto;
@@ -75,13 +79,31 @@
 }
 
 .startEndWrapperSB {
-    margin-top: 10px;
+    margin-top: 15px;
     display: flex;
     flex-direction: column;
+    gap: 10px;
 }
 
 .markCompletion {
     margin-top: 15px;
+}
+
+.unchecked {
+    background: white;
+}
+
+.unchecked:hover {
+    background: whitesmoke;
+}
+
+.checked {
+    color: #50C878;
+    background: white;
+}
+
+.checked:hover {
+    color: #47b36b;
 }
 
 .addButtonSB {

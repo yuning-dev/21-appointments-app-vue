@@ -51,13 +51,13 @@
                 <template v-if="isInEditMode">
                     <label :class="$style.markCompletion">
                         Mark as completed
-                        <input type="checkbox" :checked="isCompleted" @click="updateCompletionStatus" />
-                        <!-- <template v-if="!isCompleted">
-                            <font-awesome-icon data-testid="completedUnticked" icon="fa-regular fa-square" size="lg" @click="updateCompletionStatus"/>
+                        <!-- <input type="checkbox" :checked="isCompleted" @click="updateCompletionStatus" /> -->
+                        <template v-if="!isCompleted">
+                            <font-awesome-icon data-testid="completedUnticked" icon="fa-regular fa-square" size="lg" :class="$style.unchecked" @click="updateCompletionStatus"/>
                         </template>
                         <template v-if="isCompleted">
-                            <font-awesome-icon data-testid="completedTicked" icon="fa-regular fa-square-check" size="lg" @click="updateCompletionStatus"/>
-                        </template> -->
+                            <font-awesome-icon data-testid="completedTicked" icon="fa-solid fa-square-check" size="lg" :class="$style.checked" @click="updateCompletionStatus"/>
+                        </template>
                     </label>
                 </template>
             </div>

@@ -43,6 +43,10 @@
     width: 40px;
 }
 
+.modalContentWrapper {
+    padding: 15px;
+}
+
 .editCompleteBtn {
     margin-left: 5px;
 }

@@ -23,9 +23,11 @@
         <template v-if="modalDeleteUpcoming">
             <ModalWindow @closeModal="closeModal">
                 <template v-slot>
-                    Are you sure you want to delete all the upcoming appointments?
+                    <div :class="$style.modalText">
+                        Are you sure you want to delete all the upcoming appointments?
+                    </div>
                     <div :class="$style.modalBtnContainer">
-                        <button :class="$style.button" @click="deleteUpcomingAppts" data-testid="yesBtn">Yes</button>
+                        <button :class="[$style.button, $style.yesButton]" @click="deleteUpcomingAppts" data-testid="yesBtn">Yes</button>
                         <button :class="[$style.button, $style.cancelButton]" @click="closeModal">Cancel</button>
                     </div>
                 </template>
@@ -45,9 +47,11 @@
         <template v-if="modalDeletePast">
             <ModalWindow @closeModal="closeModal">
                 <template v-slot>
-                    Are you sure you want to delete all the past appointments?
+                    <div :class="$style.modalText">
+                        Are you sure you want to delete all the past appointments?
+                    </div>
                     <div :class="$style.modalBtnContainer">
-                        <button :class="$style.button" @click="deletePastAppts" data-testid="yesBtn">Yes</button>
+                        <button :class="[$style.button, $style.yesButton]" @click="deletePastAppts" data-testid="yesBtn">Yes</button>
                         <button :class="[$style.button, $style.cancelButton]" @click="closeModal">Cancel</button>
                     </div>
                 </template>
@@ -67,9 +71,11 @@
         <template v-if="modalDeleteCompleted">
             <ModalWindow @closeModal="closeModal">
                 <template v-slot>
-                    Are you sure you want to delete all the completed appointments?
+                    <div :class="$style.modalText">
+                        Are you sure you want to delete all the completed appointments?
+                    </div>
                     <div :class="$style.modalBtnContainer">
-                        <button :class="$style.button" @click="deleteCompletedAppts" data-testid="yesBtn">Yes</button>
+                        <button :class="[$style.button, $style.yesButton]" @click="deleteCompletedAppts" data-testid="yesBtn">Yes</button>
                         <button :class="[$style.button, $style.cancelButton]" @click="closeModal">Cancel</button>
                     </div>
                 </template>
@@ -81,9 +87,11 @@
         <template v-if="modalDeleteAll">
             <ModalWindow @closeModal="closeModal">
                 <template v-slot>
-                    Are you sure you want to delete all the appointments?
+                    <div :class="$style.modalText">
+                        Are you sure you want to delete all the appointments?
+                    </div>
                     <div :class="$style.modalBtnContainer">
-                        <button :class="$style.button" @click="deleteAllAppts" data-testid="yesBtn">Yes</button>
+                        <button :class="[$style.button, $style.yesButton]" @click="deleteAllAppts" data-testid="yesBtn">Yes</button>
                         <button :class="[$style.button, $style.cancelButton]" @click="closeModal">Cancel</button>
                     </div>
                 </template>                
