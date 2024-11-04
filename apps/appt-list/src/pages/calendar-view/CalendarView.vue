@@ -3,7 +3,7 @@
         <div :class="$style.card">
             In the Calendar view:
             <ul>
-                <li>to create an appointment, click the Add Appointment button at the bottom right of the calendar</li>
+                <li>to create an appointment, click the <span :class="$style.addBtnHighlight">Add Appointment</span> button at the bottom right of the calendar</li>
                 <li>to update an appointment, double click it in the calendar</li>
             </ul>
         </div>
@@ -11,7 +11,6 @@
             <div :class="$style.calSidebarWrapper">
                 <div :class="$style.cal">
                     <vue-cal 
-                        class="vuecal--blue-theme"
                         :class="$style.testCal"
                         ref="vuecal"
                         small
@@ -152,3 +151,4 @@ export default {
 </script>
 
 <style module src="./CalendarView.css"></style>
+<style src="./CalendarViewNonScoped.css"></style>

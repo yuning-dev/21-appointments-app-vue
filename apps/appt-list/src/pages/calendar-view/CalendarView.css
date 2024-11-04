@@ -24,6 +24,10 @@
     background: #e9dffc;
 }
 
+.addBtnHighlight {
+    background: #cdf5fd;
+}
+
 .calSidebarWrapper {
     width: fit-content;
     display: flex;
@@ -74,15 +78,14 @@
     margin-top: 10px;
     padding: 6px 12px;
     font-size: 1.1em;
-    color: 	white;
-    background: #1ca9c9;
-    border: 1px solid #15859e;
+    background: #cdf5fd;
+    border: 1px solid #4ecaec;
 }
 
 .addBtn:hover {
     cursor: pointer;
-    background: #15859e;
-    border-color: #15859e;
+    background: #a0e9ff;
+    border-color: #a0e9ff;
 }
 
 .popUp {
@@ -119,6 +122,6 @@
     background: rgb(225, 241, 255);
 }
 
-.testCal {
+.testCal{
     background: white;
 }

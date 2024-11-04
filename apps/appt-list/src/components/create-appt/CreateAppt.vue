@@ -9,11 +9,11 @@
             <div :class="$style.startEndWrapper">
                 <label>
                     Start
-                    <DatePicker showTime hourFormat="12" showIcon icondisplay="input" fluid :class="$style.time" v-model="start" data-testid="timePicker"/>
+                    <CustomDatePicker :class="$style.time" v-model="start" data-testid="timePicker"/>
                 </label>
                 <label>
                     End
-                    <DatePicker :minDate="earliestApptEnd" showTime hourFormat="12" showIcon icondisplay="input" fluid :class="$style.time" v-model="end" data-testid="timePicker"/>
+                    <CustomDatePicker :minDate="earliestApptEnd" :class="$style.time" v-model="end" data-testid="timePicker"/>
                 </label>
             </div>
             <div v-if="!isInEditMode" :class="$style.addBtnWrapper">
@@ -42,11 +42,11 @@
             <div :class="$style.startEndWrapperSB">
                 <label>
                     Start
-                    <DatePicker showTime hourFormat="12" showIcon icondisplay="input" fluid :class="$style.time" v-model="start" data-testid="timePicker"/>
+                    <CustomDatePicker showTime hourFormat="12" showIcon icondisplay="input" fluid :class="$style.timeSB" v-model="start" data-testid="timePicker"/>
                 </label>
                 <label>
                     End
-                    <DatePicker :minDate="earliestApptEnd" showTime hourFormat="12" showIcon icondisplay="input" fluid :class="$style.time" v-model="end" data-testid="timePicker"/>
+                    <CustomDatePicker :minDate="earliestApptEnd" showTime hourFormat="12" showIcon icondisplay="input" fluid :class="$style.timeSB" v-model="end" data-testid="timePicker"/>
                 </label>
                 <template v-if="isInEditMode">
                     <label :class="$style.markCompletion">
@@ -80,14 +80,16 @@
 
 <script>
 import InputText from 'primevue/inputtext'
-import DatePicker from 'primevue/datepicker'
+// import DatePicker from 'primevue/datepicker'
 import { addMinutes } from 'date-fns'
+import CustomDatePicker from '../custom-date-picker/CustomDatePicker.vue';
 
 export default {
     name: 'CreateAppt',
     components: {
         InputText,
-        DatePicker
+        CustomDatePicker
+        // DatePicker
     },
     emits: ['createAppt', 'updateAppt', 'deleteAppt'],
     props: {
@@ -108,6 +110,11 @@ export default {
                 this.end = addMinutes(this.start, 15)
             }
         },
+        start(newStart, oldStart) {
+            if (this.end < addMinutes(newStart, 15)) {
+                this.end = addMinutes(newStart, 15)
+            }
+        }
     },
     computed: {
         isInEditMode() {

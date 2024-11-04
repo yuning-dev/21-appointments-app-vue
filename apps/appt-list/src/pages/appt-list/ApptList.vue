@@ -121,7 +121,7 @@ export default {
         ModalWindow,
         CreateAppt,
         DatePicker,
-        InputText
+        InputText,
     },
     data() {
         return {
@@ -134,6 +134,7 @@ export default {
             modalDeleteUpcoming: false,
             modalDeletePast: false,
             modalDeleteCompleted: false,
+            fancyText: 'Raaaaaahhh'
         }
     },
     async mounted() {
