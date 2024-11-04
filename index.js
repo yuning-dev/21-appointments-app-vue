@@ -20,6 +20,11 @@ app.use(cors({
 }))
 app.use(cookieParser())
 
+// const corsOptions = {
+//     origin: 'http://localhost:5173',
+//     optionsSucessStatus: 200
+// }
+
 app.use(session({
     secret: 'soincrediblymuchsecrecy',
     cookie: {
@@ -46,6 +51,10 @@ app.use('/api', apptRoutes)
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'views/appt-list/index.html'))
 })
+
+// app.get('*', cors(corsOptions), function(req, res, next) {
+//     res.sendFile(path.join(__dirname, 'views/appt-list/index.html'))
+// })
 
 app.listen(port, () => {
     console.log(`Appointments app listening on port ${port}`)

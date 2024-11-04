@@ -1,0 +1,22 @@
+.wrapper {
+    display: flex;
+}
+
+.time {
+    width: 250px;
+}
+
+.tickIcon {
+    position: relative;
+    top: 2px;
+    left: 10px;
+}
+
+.tickIcon:hover {
+    cursor: pointer;
+    filter: brightness(1.1)
+}
+
+.tickIcon:active {
+    filter: brightness(1)
+}

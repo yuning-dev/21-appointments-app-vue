@@ -4,7 +4,7 @@
             In the Calendar view:
             <ul>
                 <li>to create an appointment, click the Add Appointment button at the bottom right of the calendar</li>
-                <li>to update an appointment, double click it</li>
+                <li>to update an appointment, double click it in the calendar</li>
             </ul>
         </div>
         <div :class="$style.mainWrapper">
