@@ -1,0 +1,24 @@
+.vuecal__menu {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    justify-content: center;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-top: 1px solid #4200be;
+    border-right: 1px solid #4200be;
+    border-left: 1px solid #4200be;
+    background: #8336bb;
+    color: white;
+}
+
+.vuecal__title-bar {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: space-between;
+    font-size: 1.4em;
+    line-height: 1.3;
+    min-height: 2em;
+    background: #e9dffc;
+}

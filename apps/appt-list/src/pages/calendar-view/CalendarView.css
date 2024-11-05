@@ -1,0 +1,132 @@
+
+.button {
+    padding: 5px 8px;
+    border-radius: 3px;
+    border: 1px solid rgb(255, 162, 0);
+    background: #ffd4b7;
+    color: 	#404040;
+    font-size: 1.005em;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin: 0 auto;
+    padding: 5px 30px;
+}
+
+.card {
+    margin: 20px auto 0 auto;
+    width: 1000px;
+    border: 1px solid #7743db;
+    border-radius: 10px;
+    padding: 15px;
+    background: #e9dffc;
+}
+
+.addBtnHighlight {
+    background: #cdf5fd;
+}
+
+.switchViewDisclaimer {
+    text-align: right;
+}
+
+.calSidebarWrapper {
+    width: fit-content;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cal {
+    height: 750px;
+}
+
+.legendAddBtnWrapper {
+    width: 1000px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.legendWrapper {
+    margin-top: 10px;
+    display: flex;
+    gap: 25px;
+}
+
+.legend {
+    position: relative;
+    top: 3px;
+    display: inline-block;
+    margin-left: 3px;
+    width: 60px;
+    height: 15px;
+}
+
+.completedLegend {
+    background: rgb(226, 250, 226);
+    border: 2px double rgb(160, 248, 160);
+}
+
+.pastLegend {
+    background: rgb(229, 229, 229);
+}
+
+.upcomingLegend {
+    background: rgb(225, 241, 255);
+}
+
+
+.addBtn {
+    margin-top: 10px;
+    padding: 6px 12px;
+    font-size: 1.1em;
+    background: #cdf5fd;
+    border: 1px solid #4ecaec;
+}
+
+.addBtn:hover {
+    cursor: pointer;
+    background: #a0e9ff;
+    border-color: #a0e9ff;
+}
+
+.popUp {
+    margin-left: 15px;
+    padding-top: 10px;
+    padding-bottom: 30px;
+    border: 1px solid #9774d9;
+    background: #f3edff;
+    border-radius: 5px;
+    width: 325px;
+}
+
+.completedApptsSection {
+    margin-top: 50px;
+}
+
+.listHeader {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* calendar events css below */
+
+.completedAppt {
+    background: rgb(226, 250, 226);
+    border: 2px double rgb(160, 248, 160);
+}
+
+.pastAppt {
+    background: rgb(229, 229, 229);
+}
+
+.upcomingAppt {
+    background: rgb(225, 241, 255);
+}
+
+.testCal{
+    background: white;
+}

@@ -1,0 +1,146 @@
+/* input[type="checkbox"] {
+    accent-color: #03C03C;
+} */
+
+.button {
+    padding: 5px 8px;
+    border-radius: 3px;
+    border: 1px solid rgb(255, 162, 0);
+    background: #ffd4b7;
+    color: 	#404040;
+    font-size: 1.005em;
+}
+
+.closeBtn {
+    color: white;
+    background: crimson;
+    float: right;
+    border: none;
+    font-size: 1.1em;
+    padding: 0 5px;
+}
+
+.closeBtn:hover {
+    font-weight: bold;
+}
+
+.addItemContainer {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.addItemField {
+    width: 418px;
+    margin-left: 10px;
+}
+
+.startEndWrapper {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.time {
+    width: 250px;
+}
+
+.addButton {
+    margin-top: 10px;
+    color: 	#404040;
+    background: #cdf5fd;
+    border: 1px solid #4ecaec;
+}
+
+.addButton:hover {
+    color: 	#404040;
+    background: #a0e9ff;
+    border-color: #a0e9ff;
+}
+
+.updateBtnWrapper {
+    margin-top: 10px;
+}
+
+/* Below is for sidebar configuration */
+.addItemContainerSB {
+    height: 688px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.addItemFieldSB {
+    width: 250px;
+}
+
+.startEndWrapperSB {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.markCompletion {
+    margin-top: 15px;
+}
+
+.unchecked {
+    background: white;
+}
+
+.unchecked:hover {
+    background: whitesmoke;
+}
+
+.checked {
+    color: #50C878;
+    background: white;
+}
+
+.checked:hover {
+    color: #47b36b;
+}
+
+.addButtonSB {
+    margin-top: 30px;
+    color: 	#404040;
+    background: #cdf5fd;
+    border: 1px solid #4ecaec;
+}
+
+.addButtonSB:hover {
+    color: 	#404040;
+    background: #a0e9ff;
+    border-color: #a0e9ff;
+}
+
+.updateDeleteBtnsWrapper {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.updateButtonSB {
+    color: 	#404040;
+    background: #cdf5fd;
+    border: 1px solid #4ecaec;
+}
+
+.updateButtonSB:hover {
+    color: 	#404040;
+    background: #a0e9ff;
+    border-color: #a0e9ff;
+}
+
+.deleteButton:hover {
+    background: rgb(255, 162, 0);
+}

@@ -1,0 +1,64 @@
+.button {
+    padding: 5px 8px;
+    margin-left: 2px;
+    border-radius: 3px;
+    color: 	#404040;
+    background: #cae3eb;
+    border: 1px solid #4ecaec;
+}
+
+.button:hover {
+    color: 	#404040;
+    background: #A4DDED;
+    border-color: #A4DDED;
+}
+
+.button:disabled {
+    background: white;
+    color: 	#A9A9A9;
+    border-color: #A9A9A9;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #7743db;
+    padding: 10px;
+    margin-top: 8px;
+    border-radius: 10px;
+    background: white;
+}
+
+.apptTitleContainer {
+    width: 40%;
+}
+
+.startEndWrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.timeTitle {
+    display: inline-block;
+    width: 40px;
+}
+
+.modalContentWrapper {
+    padding: 15px;
+}
+
+.editCompleteBtn {
+    margin-left: 5px;
+}
+
+.editCompleteIcon:hover {
+    cursor: pointer;
+}
+
+.orange {
+    color: #FF7F50;
+}
+
+.red {
+    color: #E60026;
+}
