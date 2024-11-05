@@ -6,7 +6,7 @@ const router = Router()
 router.get('/appointments', async (req, res) => {
     try {
         //to add sessions back use .find({ sessionId: req.session.id }) below
-        let apptList = await Appointment.find({}).sort({ end: 1 }).exec()
+        let apptList = await Appointment.find({ sessionId: req.session.id }).sort({ end: 1 }).exec()
         if (!apptList) {
             throw new Error('No Appointments List found')
         }

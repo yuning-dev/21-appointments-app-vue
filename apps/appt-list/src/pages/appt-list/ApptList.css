@@ -74,6 +74,10 @@ body {
     margin: 20px auto 0 auto;
 }
 
+.switchViewDisclaimer {
+    text-align: right;
+}
+
 .upcomingApptsSection {
     padding-left: 20px;
     padding-right: 20px;

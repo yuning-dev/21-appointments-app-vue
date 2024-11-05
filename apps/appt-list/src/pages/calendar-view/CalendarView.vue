@@ -6,6 +6,9 @@
                 <li>to create an appointment, click the <span :class="$style.addBtnHighlight">Add Appointment</span> button at the bottom right of the calendar</li>
                 <li>to update an appointment, double click it in the calendar</li>
             </ul>
+            <p :class="$style.switchViewDisclaimer">
+                Prefer the list view? To switch please <router-link :to="{ name: 'list-view' }">click here</router-link>.
+            </p>
         </div>
         <div :class="$style.mainWrapper">
             <div :class="$style.calSidebarWrapper">
@@ -15,8 +18,8 @@
                         ref="vuecal"
                         small
                         :events="formattedAppts"
-                        :time-from="6 * 60"
-                        :time-to="23 * 60"
+                        :time-from="7 * 60"
+                        :time-to="22 * 60"
                         :disable-views="['years', 'year', 'day']"
                         :on-event-create="getCreateApptPopUp"
                         :on-event-dblclick="getUpdateApptPopUp"
@@ -43,7 +46,6 @@
 <script>
 import VueCal from 'vue-cal'
 import 'vue-cal/dist/vuecal.css'
-import { addHours, subHours, subDays } from 'date-fns'
 import { mapWritableState, mapActions } from 'pinia';
 import { useApptStore } from '../../stores/ApptStore';
 
@@ -59,27 +61,6 @@ export default {
         return {
             appt: {},
             hasPopUp: false,
-            // testEvents: [{
-            //     title: 'have chocolate',
-            //     start: this.testNow,
-            //     end: addHours(this.testNow, 1),
-            //     completion: false,
-            //     class: this.$style['upcomingAppt']
-            // },
-            // {
-            //     title: 'read a book',
-            //     start: subDays(this.testNow, 1),
-            //     end: subHours(this.testNow, 22),
-            //     completion: false,
-            //     class: this.$style['pastAppt']
-            // },
-            // {
-            //     title: 'feed birds',
-            //     start: subDays(this.testNow, 2),
-            //     end: subHours(this.testNow, 46),
-            //     completion: true,
-            //     class: this.$style['completedAppt']
-            // }]
         }
     },
     async mounted() {
@@ -109,9 +90,6 @@ export default {
                 }
             })
         },
-        // testNow() {
-        //     return new Date()
-        // }
     },
     methods: {
         ...mapActions(useApptStore, [

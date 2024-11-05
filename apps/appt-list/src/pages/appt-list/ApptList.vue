@@ -5,9 +5,12 @@
                 Snazzy Appointments App
             </h1>
             <p :class="$style.intro">
-                With our snazzy appointment app, managing appointments has never been easier. Begin by entering your appointment details below.
+                Managing appointments has never been easier. Begin by entering your appointment details below.
             </p>
             <CreateAppt :appt="appt" @createAppt="createAppointment" @updateAppt="updateAppt" />
+            <p :class="$style.switchViewDisclaimer">
+                Prefer the calendar view? To switch please <router-link :to="{ name: 'calendar-view' }">click here</router-link>.
+            </p>
         </section>
         <section :class="[$style.upcomingApptsSection, $style.card]">
             <div :class="$style.listHeader">
