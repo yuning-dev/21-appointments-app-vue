@@ -11,14 +11,12 @@
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
     "@fortawesome/free-regular-svg-icons": "^6.6.0",
-    "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@fortawesome/vue-fontawesome": "^3.0.8",
     "@primevue/themes": "^4.1.1",
     "axios": "^1.6.1",
     "date-fns": "^4.1.0",
     "pinia": "^2.1.7",
     "primevue": "^4.1.1",
-    "uuid": "^10.0.0",
     "vue": "^3.3.4",
     "vue-cal": "^4.10.0",
     "vue-router": "^4.2.5"

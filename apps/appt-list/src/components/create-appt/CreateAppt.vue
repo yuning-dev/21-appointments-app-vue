@@ -56,7 +56,7 @@
                             <font-awesome-icon data-testid="completedUnticked" icon="fa-regular fa-square" size="lg" :class="$style.unchecked" @click="updateCompletionStatus"/>
                         </template>
                         <template v-if="isCompleted">
-                            <font-awesome-icon data-testid="completedTicked" icon="fa-solid fa-square-check" size="lg" :class="$style.checked" @click="updateCompletionStatus"/>
+                            <font-awesome-icon data-testid="completedTicked" icon="fa-regular fa-square-check" size="lg" :class="$style.checked" @click="updateCompletionStatus"/>
                         </template>
                     </label>
                 </template>
