@@ -7,8 +7,8 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import routes from './routes'
 
 import { faSquare } from '@fortawesome/free-regular-svg-icons'
-import { faSquareCheck} from '@fortawesome/free-regular-svg-icons'
-// import { faSquareCheck} from '@fortawesome/free-solid-svg-icons'
+// import { faSquareCheck} from '@fortawesome/free-regular-svg-icons'
+import { faSquareCheck} from '@fortawesome/free-solid-svg-icons'
 // import { faTrashCan } from '@fortawesome/free-regular-svg-icons'
 // import { faRectangleXmark } from '@fortawesome/free-solid-svg-icons'
 
