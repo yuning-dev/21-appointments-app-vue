@@ -1,303 +1,244 @@
 import { describe, test, expect, beforeEach, vi } from 'vitest'
-import { mount } from '@vue/test-utils'
+import { mount, shallowMount } from '@vue/test-utils'
 import { createTestingPinia } from '@pinia/testing'
 import { useApptStore } from '@/stores/ApptStore'
 import { nextTick } from 'vue'
 
 import ApptList from './ApptList.vue'
-import ModalWindow from '@/components/modal-window/ModalWindow.vue'
+import CreateAppt from '../../components/create-appt/CreateAppt.vue'
+import DatePicker from 'primevue/datepicker'
+import InputText from 'primevue/inputtext'
+import Appointment from '../../components/appointment/Appointment.vue'
+import ModalWindow from '../../components/modal-window/ModalWindow.vue'
 
-describe.skip('appointments list, active appointments list and completed appointments list', () => {
+// Things to test
+    // Displays the title and introduction text
+    // Displays the CreateAppt component
+    // Displays the correct amount of appointments under each section (depending on appts in the store)
+    // Clicking delete upcoming/past/completed/all appointments makes the modal window appear with the appropriate text
+    //  clicking the cancel button closes the modal
+    //  clicking the yes button sends the right call to the store
+
+//  All done; only outstanding
+    // When clicking 'click here', routes to the calendar view
+
+describe('appointments list view', () => {
+    let router
     let mountOptions
-    
+
     beforeEach(() => {
+        router = {
+            push: vi.fn()
+        }
+
         mountOptions = {
             global: {
-                plugins: [createTestingPinia({
-                    createSpy: vi.fn,
-                    initialState: {
-                        taskList: []
-                    }
-                })]
+                plugins: [
+                    createTestingPinia({
+                        createSpy: vi.fn,
+                        initialState: {
+                            apptList: []
+                        }
+                    },
+                    router
+                )],
+                stubs: {
+                    DatePicker: true,
+                    InputText: true
+                },
+                mocks: {
+                    $router: router
+                }
             }
         }
     })
 
+    const sampleApptList = [
+        {
+            _id: "672df3c2fef1e2f7f9b0fce6",
+            title: "go scuba diving",
+            start: new Date("2024-11-01T09:17:44.000Z"),
+            end: new Date("2024-11-01T10:32:44.000Z"),
+            completion: true,
+            sessionId: "OkKn_OT-1F-BOvieBVBAAoAuRSV5L1sP",
+            __v: 0
+        },
+        {
+            _id: "672df3b1fef1e2f7f9b0fce3",
+            title: "have donuts",
+            start: new Date("2024-11-08T09:17:44.000Z"),
+            end: new Date("2024-11-08T10:32:44.000Z"),
+            completion: false,
+            sessionId: "OkKn_OT-1F-BOvieBVBAAoAuRSV5L1sP",
+            __v: 0
+        },
+        {
+            _id: "672df373fef1e2f7f9b0fce0",
+            title: "have coffee",
+            start: new Date("2080-11-30T11:17:44.000Z"),
+            end: new Date("2080-11-30T12:32:44.000Z"),
+            completion: false,
+            sessionId: "OkKn_OT-1F-BOvieBVBAAoAuRSV5L1sP",
+            __v: 0
+        }
+    ]
 
-    const activeTask1 = {
-        description: 'play football',
-        dueDate: '2024-09-15',
-        id: 3,
-        completion: false
-    }
 
-    const activeTask2 = {
-        description: 'go food shopping',
-        dueDate: '2024-09-14',
-        id: 4,
-        completion: false
-    }
-
-    const completedTask1 = {
-        description: 'buy gift for mum',
-        dueDate: '2024-09-11',
-        id: 1,
-        completion: true
-    }
-
-    const completedTask2 = {
-        description: 'water the plants',
-        dueDate: '2024-09-11',
-        id: 2,
-        completion: true
-    }
-
-    // function modalWindowExists(wrapper) {
-    //     return wrapper.findComponent(ModalWindow)
-    // }
-    
-    async function addSampleTasks() {
+    function addSampleAppts() {
         const store = useApptStore()
-        store.taskList = [activeTask1, activeTask2, completedTask1, completedTask2]
+        store.apptList = sampleApptList
     }
 
-    test('when a task description and due date are provided, clicking the Add list item button adds the list to the task list and displays the task', async () => {
-        const wrapper = mount(ApptList, mountOptions)
+    test('it displays the title and introduction text', () => {
+        const wrapper = shallowMount(ApptList)
 
-        const store = useApptStore()
-
-        const taskDescription = wrapper.find('.addItemField')
-        await taskDescription.setValue('feed the dog')
-
-        const datePicker = wrapper.find('.dueDate')
-        await datePicker.setValue('2024-09-15')
-
-        const addItemButton = wrapper.find('.addButton')
-        await addItemButton.trigger('click')
-
-        expect(wrapper.text().includes('feed the dog')).toBe(true)
-        expect(wrapper.text().includes('2024-09-15')).toBe(true)
-        expect(store.taskList).toStrictEqual([{
-            description: 'feed the dog',
-            dueDate: '2024-09-15',
-            id: 0,
-            completion: false
-        }])
+        expect(wrapper.text().includes('Snazzy Appointments App')).toBe(true)
+        expect(wrapper.text().includes('Managing appointments has never been easier. Begin by entering your appointment details below.')).toBe(true)
     })
 
-    test('if no task description is provided, clicking the Add task button does not do anything', async () => {
-       const wrapper = mount(ApptList, mountOptions) 
+    test('by default, it displays the CreateAppt component and does not display the Appointment and ModalWindow components', () => {
+        const wrapper = shallowMount(ApptList)
 
-       const store = useApptStore()
+        const createAppt = wrapper.findComponent(CreateAppt)
+        const appointment = wrapper.findComponent(Appointment)
+        const modalWindow = wrapper.findComponent(ModalWindow)
 
-       const dueDate = wrapper.find('.dueDate')
-       await dueDate.setValue('2030-12-31')
-       
-       const addItemButton = wrapper.find('.addButton')
-       await addItemButton.trigger('click')
-        expect(wrapper.text().includes('2030-12-31')).toBe(false)
-        expect(store.taskList).length(0)
-    })
-
-    test('if no due date is provided, clicking the Add task button does not do anything', async () => {
-        const wrapper = mount(ApptList, mountOptions)
-
-        const store = useApptStore()
-
-        const addItemField = wrapper.find('.addItemField')
-        await addItemField.setValue('feed the dog')
-
-        const addItemButton = wrapper.find('.addButton')
-        await addItemButton.trigger('click')
-        expect(wrapper.text().includes('feed the dog')).toBe(false)
-        expect(store.taskList).length(0)
-    })
-
-    test('if there are active tasks, clicking the Delete active tasks button makes a modal window appear', async () => {
-        addSampleTasks()
-        const wrapper = mount(ApptList, mountOptions)
-
-        let modalWindow = wrapper.findComponent(ModalWindow)
+        expect(createAppt.exists()).toBe(true)
+        expect(appointment.exists()).toBe(false)
         expect(modalWindow.exists()).toBe(false)
-
-        const deleteActiveTaskBtn = wrapper.find('[data-testid="deleteActiveBtn"]')
-        await deleteActiveTaskBtn.trigger('click')
-        modalWindow = wrapper.findComponent(ModalWindow)
-        expect(modalWindow.exists()).toBe(true)
-        expect(wrapper.text().includes('Are you sure you want to delete all the active tasks?')).toBe(true)
     })
 
-    test('in the modal window triggered by clicking Delete active tasks, clicking Yes deletes the active tasks in the store', async () => {
-        addSampleTasks()
-        const wrapper = mount(ApptList, mountOptions)
+    // Find how to either trigger the link "click here" (and then check that router.push has been called)
+    // Or how to test that the router-link html contains the path?? 
+    // test('clicking the "click here" link routes the user to the calendar view page', async () => {
+    //     const wrapper = shallowMount(ApptList, mountOptions)
+
+    //     const link = wrapper.find('[data-testid="calViewLink"]')
+    //     expect(JSON.stringify(link.html())).includes(`<router-link :to="{ name: 'calendar-view' }" data-testid="calViewLink">`)
+    // })
+
+    test('it displays the correct amount of appointments under each section (based on store data)', () => {
+        addSampleAppts()
         const store = useApptStore()
+        expect(store.apptList.length).toBe(3)
+        expect(store.upcomingApptsList.length).toBe(1)
+        expect(store.pastApptsList.length).toBe(1)
+        expect(store.completedApptsList.length).toBe(1)
 
-        expect(wrapper.text().includes('play football')).toBe(true)
-        expect(wrapper.text().includes('go food shopping')).toBe(true)
-        expect(wrapper.text().includes('buy gift for mum')).toBe(true)
-        expect(wrapper.text().includes('water the plants')).toBe(true)
+        const wrapper = shallowMount(ApptList)
+        expect(wrapper.findAllComponents(Appointment).length).toBe(3)
 
-        const deleteActiveBtn = wrapper.find('[data-testid="deleteActiveBtn"]')
-        await deleteActiveBtn.trigger('click')
+        const upcomingSection = wrapper.find('.upcomingApptsSection')
+        expect(upcomingSection.findAllComponents(Appointment).length).toBe(1)
 
-        const yesBtn = wrapper.find('[data-testid="yesBtn"]')
+        const pastSection = wrapper.find('.pastApptsSection')
+        expect(pastSection.findAllComponents(Appointment).length).toBe(1)
+
+        const completedSection = wrapper.find('.completedApptsSection')
+        expect(completedSection.findAllComponents(Appointment).length).toBe(1)
+    })
+
+    test('clicking delete upcoming/past/completed/all appointments buttons makes a modal appear with the appropriate text', async () => {
+        addSampleAppts()
+
+        const wrapper = mount(ApptList, mountOptions)
+        expect(wrapper.findComponent(ModalWindow).exists()).toBe(false)
+
+        const deleteUpcomingBtn = wrapper.find('[data-testid="deleteUpcomingBtn"]')
+        await deleteUpcomingBtn.trigger('click')
+        expect(wrapper.findComponent(ModalWindow).exists()).toBe(true)
+        expect(wrapper.text().includes('Are you sure you want to delete all the upcoming appointments?'))
+        
+        const cancelBtn = wrapper.find('.cancelButton')
+        await cancelBtn.trigger('click')
+        expect(wrapper.findComponent(ModalWindow).exists()).toBe(false)
+
+        const deletePastBtn = wrapper.find('[data-testid="deletePastBtn"]')
+        await deletePastBtn.trigger('click')
+        expect(wrapper.findComponent(ModalWindow).exists()).toBe(true)
+        expect(wrapper.text().includes('Are you sure you want to delete all the past appointments?'))
+        
+        await cancelBtn.trigger('click')
+        expect(wrapper.findComponent(ModalWindow).exists()).toBe(false)
+
+        const deleteCompletedBtn = wrapper.find('[data-testid="deleteCompletedBtn"]')
+        await deleteCompletedBtn.trigger('click')
+        expect(wrapper.findComponent(ModalWindow).exists()).toBe(true)
+        expect(wrapper.text().includes('Are you sure you want to delete all the completed appointments?'))
+        
+        await cancelBtn.trigger('click')
+        expect(wrapper.findComponent(ModalWindow).exists()).toBe(false)
+
+        const deleteAllBtn = wrapper.find('.deleteAllBtn')
+        await deleteAllBtn.trigger('click')
+        expect(wrapper.findComponent(ModalWindow).exists()).toBe(true)
+        expect(wrapper.text().includes('Are you sure you want to delete all the appointments?'))
+        
+        await cancelBtn.trigger('click')
+        expect(wrapper.findComponent(ModalWindow).exists()).toBe(false)
+    })
+
+    test('in the modal window that appears after clicking the Delete upcoming appointments button, clicking Yes sends the right call to the store', async () => {
+        addSampleAppts()
+        const store = useApptStore()
+        const wrapper = mount(ApptList, mountOptions)
+
+        const upcomingSection = wrapper.find('.upcomingApptsSection')
+        expect(upcomingSection.findAllComponents(Appointment).length).toBe(1)
+        const deleteUpcomingBtn = wrapper.find('[data-testid="deleteUpcomingBtn"]')
+        await deleteUpcomingBtn.trigger('click')
+        expect(wrapper.findComponent(ModalWindow).exists()).toBe(true)
+        const yesBtn = wrapper.find('.yesButton')
         await yesBtn.trigger('click')
-        expect(wrapper.text().includes('Are you sure you want to delete all the active tasks?')).toBe(false)
-        expect(store.taskList).toStrictEqual([completedTask1, completedTask2])
         await nextTick()
-        expect(wrapper.text().includes('play football')).toBe(false)
-        expect(wrapper.text().includes('go food shopping')).toBe(false)
-        expect(wrapper.text().includes('buy gift for mum')).toBe(true)
-        expect(wrapper.text().includes('water the plants')).toBe(true)
+        expect(store.deleteMultipleItems).toHaveBeenCalledWith('upcoming')
     })
-    
-    test('in the modal window triggered by clicking Delete active tasks, clicking Cancel closes the modal without changing the task list', async () => {
-        addSampleTasks()
-        const wrapper = mount(ApptList, mountOptions)
+
+    test('in the modal window that appears after clicking the Delete past appointments button, clicking Yes sends the right call to the store', async () => {
+        addSampleAppts()
         const store = useApptStore()
-        let modalWindow = wrapper.findComponent(ModalWindow)
-
-        const deleteActiveBtn = wrapper.find('[data-testid="deleteActiveBtn"]')
-        await deleteActiveBtn.trigger('click')
-        modalWindow = wrapper.findComponent(ModalWindow)
-        expect(modalWindow.exists()).toBe(true)
-
-        const cancelBtn = wrapper.find('.cancelButton')
-        await cancelBtn.trigger('click')
-        modalWindow = wrapper.findComponent(ModalWindow)
-        expect(modalWindow.exists()).toBe(false)
-        expect(store.taskList).toStrictEqual([activeTask1, activeTask2, completedTask1, completedTask2])
-    })
-
-    test('clicking the Delete completed tasks button when there are completed tasks makes a modal window appear', async () => {
-        addSampleTasks()
         const wrapper = mount(ApptList, mountOptions)
 
-        const deleteCompletedBtn = wrapper.find('[data-testid="deleteCompletedBtn"]')
-        await deleteCompletedBtn.trigger('click')
-
-        let modalWindow = wrapper.findComponent(ModalWindow)
-        expect(modalWindow.exists()).toBe(true)
-        expect(wrapper.text().includes('Are you sure you want to delete all the completed tasks?')).toBe(true)
-    })
-
-    test('after clicking the Delete completed tasks button: clicking yes closes the modal and deletes the completed tasks from the store and on the page', async () => {
-        addSampleTasks()
-        const wrapper = mount(ApptList, mountOptions)
-        const store = useApptStore()
-
-        const deleteCompletedBtn = wrapper.find('[data-testid="deleteCompletedBtn"]')
-        await deleteCompletedBtn.trigger('click')
-
-        const yesBtn = wrapper.find('[data-testid="yesBtn"]')
+        const pastSection = wrapper.find('.pastApptsSection')
+        expect(pastSection.findAllComponents(Appointment).length).toBe(1)
+        const deletePastBtn = wrapper.find('[data-testid="deletePastBtn"]')
+        await deletePastBtn.trigger('click')
+        expect(wrapper.findComponent(ModalWindow).exists()).toBe(true)
+        const yesBtn = wrapper.find('.yesButton')
         await yesBtn.trigger('click')
-
-        let modalWindow = wrapper.findComponent(ModalWindow)
-        expect(modalWindow.exists()).toBe(false)
-        expect(store.taskList).toStrictEqual([activeTask1, activeTask2])
-        expect(wrapper.text().includes('play football')).toBe(true)
-        expect(wrapper.text().includes('go food shopping')).toBe(true)
-        expect(wrapper.text().includes('buy gift for mum')).toBe(false)
-        expect(wrapper.text().includes('water the plants')).toBe(false)
+        await nextTick()
+        expect(store.deleteMultipleItems).toHaveBeenCalledWith('past')
     })
 
-    test('after clicking the Deleted completed tasks button: clicking cancel closes the modal without changing tasks on the page or the store', async () => {
-        addSampleTasks()
-        const wrapper = mount(ApptList, mountOptions)
+    test('in the modal window that appears after clicking the Delete completed appointments button, clicking Yes sends the right call to the store', async () => {
+        addSampleAppts()
         const store = useApptStore()
+        const wrapper = mount(ApptList, mountOptions)
 
+        const completedSection = wrapper.find('.completedApptsSection')
+        expect(completedSection.findAllComponents(Appointment).length).toBe(1)
         const deleteCompletedBtn = wrapper.find('[data-testid="deleteCompletedBtn"]')
         await deleteCompletedBtn.trigger('click')
-
-        const cancelBtn = wrapper.find('.cancelButton')
-        await cancelBtn.trigger('click')
-        
-
-        let modalWindow = wrapper.findComponent(ModalWindow)
-        expect(modalWindow.exists()).toBe(false)
-        expect(store.taskList).toStrictEqual([activeTask1, activeTask2, completedTask1, completedTask2])
-        expect(wrapper.text().includes('play football')).toBe(true)
-        expect(wrapper.text().includes('go food shopping')).toBe(true)
-        expect(wrapper.text().includes('buy gift for mum')).toBe(true)
-        expect(wrapper.text().includes('water the plants')).toBe(true)
-    })
-
-    test('when there are tasks, clicking Delete all tasks button makes a modal window appear', async () => {
-        addSampleTasks()
-        const wrapper = mount(ApptList, mountOptions)
-
-        let modalWindow = wrapper.findComponent(ModalWindow)
-        expect(modalWindow.exists()).toBe(false)
-        
-        const deleteAllBtn = wrapper.find('.deleteAllButton')
-
-        await deleteAllBtn.trigger('click')
-        modalWindow = wrapper.findComponent(ModalWindow)
-        expect(modalWindow.exists()).toBe(true)
-        expect(wrapper.text().includes('Are you sure you want to delete all the tasks?'))
-    })
-
-    test('after clicking Delete all tasks button, clicking Yes deletes all tasks from the store and the page and makes the modal window disappear', async () => {
-        addSampleTasks()
-        const wrapper = mount(ApptList, mountOptions)
-        const store = useApptStore()
-
-        const deleteAllBtn = wrapper.find('.deleteAllButton')
-        await deleteAllBtn.trigger('click')
-        
-        const yesBtn = wrapper.find('[data-testid="yesBtn"]')
+        expect(wrapper.findComponent(ModalWindow).exists()).toBe(true)
+        const yesBtn = wrapper.find('.yesButton')
         await yesBtn.trigger('click')
-        let modalWindow = wrapper.findComponent(ModalWindow)
-        expect(modalWindow.exists()).toBe(false)
-        expect(store.taskList).toStrictEqual([])
-        expect(wrapper.text().includes('play football')).toBe(false)
-        expect(wrapper.text().includes('go food shopping')).toBe(false)
-        expect(wrapper.text().includes('buy gift for mum')).toBe(false)
-        expect(wrapper.text().includes('water the plants')).toBe(false)
+        await nextTick()
+        expect(store.deleteMultipleItems).toHaveBeenCalledWith('completed')
     })
 
-    test('after clicking Delete all tasks button, clicking Cancel closes the modal window without modifying the store or tasks being displayed', async () => {
-        addSampleTasks()
-        const wrapper = mount(ApptList, mountOptions)
+    test('in the modal window that appears after clicking the Delete all appointments button, clicking Yes sends the right call to the store', async () => {
+        addSampleAppts()
         const store = useApptStore()
+        const wrapper = mount(ApptList, mountOptions)
 
-        const deleteAllBtn = wrapper.find('.deleteAllButton')
+        expect(wrapper.findAllComponents(Appointment).length).toBe(3)
+        const deleteAllBtn = wrapper.find('.deleteAllBtn')
         await deleteAllBtn.trigger('click')
-
-        const cancelBtn = wrapper.find('.cancelButton')
-        await cancelBtn.trigger('click')
-        let modalWindow = wrapper.findComponent(ModalWindow)
-        expect(modalWindow.exists()).toBe(false)
-        expect(store.taskList).toStrictEqual([activeTask1, activeTask2, completedTask1, completedTask2])
-        expect(wrapper.text().includes('play football')).toBe(true)
-        expect(wrapper.text().includes('go food shopping')).toBe(true)
-        expect(wrapper.text().includes('buy gift for mum')).toBe(true)
-        expect(wrapper.text().includes('water the plants')).toBe(true)
+        expect(wrapper.findComponent(ModalWindow).exists()).toBe(true)
+        const yesBtn = wrapper.find('.yesButton')
+        await yesBtn.trigger('click')
+        await nextTick()
+        expect(store.deleteMultipleItems).toHaveBeenCalledWith('all')
     })
+
 })
-
-
-/* Tests
-
-Add list item button
-- clicking it adds the task to the task list, with the task description and due date
-- if no due date is provided, clicking it doesn't do anything
-- if no task description is provided, clicking it doesn't do anything
-
-Delete active tasks button
-- clicking it causes a modal window to appear
-Modal window
-- clicking cancel causes the modal window to disappear; there are no changes to the active task list
-- clicking yes closes the modal window and empties the active task list
-
-Delete completed tasks button
-- clicking it causes a modal window to appear
-Modal window
-- clicking cancel causes the modal window to disappear; there are no changes to the completed task list
-- clicking yes closes the modal window and empties the completed task list
-
-Delete all tasks button
-- clicking it causes a modal window to appear
-Modal window
-- clicking cancel causes the modal window to disappear; there are no changes to the active and completed task lists
-- clicking yes closes the modal window and empties the active and completed task lists */
