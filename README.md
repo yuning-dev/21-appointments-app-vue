@@ -1,2 +1,2 @@
-A preliminary version of the app is accessible here: http://snazzy-todo-list.s3-website.eu-west-2.amazonaws.com/#/
-The app is being actively worked on and I can't wait to share the new features!
+This is a full-stack appointments app that allows users to organise and manage their appointments in either list or calendar views.
+It is deployed on EC2 and can be accessed here: http://appointments.yuning-dev.com/#/
