@@ -1,7 +1,7 @@
 import { describe, test, expect, beforeEach, vi } from 'vitest'
 import { mount, shallowMount } from '@vue/test-utils'
 import { createTestingPinia } from '@pinia/testing'
-import { useApptStore } from '@/stores/ApptStore'
+import { useApptStore } from '../../stores/ApptStore'
 import { nextTick } from 'vue'
 
 import ApptList from './ApptList.vue'

@@ -1,16 +1,8 @@
 import { describe, test, expect } from "vitest";
-import { mount, shallowMount } from "@vue/test-utils";
+import { shallowMount } from "@vue/test-utils";
 import { add } from 'date-fns'
-import { nextTick } from 'vue'
 
 import CreateAppt from "./CreateAppt.vue";
-
-//tests
-//InputText, 2 DatePicker components (start and end) and Create appointment button display
-//If no props are passed, default value of title etc is undefined
-//Clicking Create Appointment emits the correct event and payload
-//Clicking Update Appointment emits the correct event and payload
-//Not sure if I could set isInEditMode to be true and test the edit mode stuff??
 
 describe('create appointment component', () => {
     const startDate = new Date()

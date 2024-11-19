@@ -21,7 +21,7 @@
 
         <!-- If in Edit mode, modal window appears allowing for editing -->
         <template v-else>
-            <ModalWindow @closeModal="closeModal">
+            <ModalWindow @closeModal="closeModal" data-testid="modalWindow">
                 <template v-slot>
                     <div :class="$style.modalContentWrapper">
                         <CreateApp :appt="appt" :isSidebar="false" @updateAppt="sendUpdateAppt" @deleteAppt="sendDeleteAppt" @closeModal="closeModal"/>
@@ -40,18 +40,11 @@
 </template>
 
 <script>
-import DatePicker from 'primevue/datepicker'
-import InputText from 'primevue/inputtext'
-
-import CreateApp from '../create-appt/CreateAppt.vue'
 import ModalWindow from '../modal-window/ModalWindow.vue';
 
 export default {
     name: 'Appointment',
     components: {
-        DatePicker,
-        InputText,
-        CreateApp,
         ModalWindow
     },
     props: {
