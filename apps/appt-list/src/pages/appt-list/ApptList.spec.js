@@ -6,21 +6,17 @@ import { nextTick } from 'vue'
 
 import ApptList from './ApptList.vue'
 import CreateAppt from '../../components/create-appt/CreateAppt.vue'
-import DatePicker from 'primevue/datepicker'
-import InputText from 'primevue/inputtext'
 import Appointment from '../../components/appointment/Appointment.vue'
 import ModalWindow from '../../components/modal-window/ModalWindow.vue'
 
 // Things to test
     // Displays the title and introduction text
     // Displays the CreateAppt component
+    // The 'click here' link contains the route to the calendar view page
     // Displays the correct amount of appointments under each section (depending on appts in the store)
     // Clicking delete upcoming/past/completed/all appointments makes the modal window appear with the appropriate text
     //  clicking the cancel button closes the modal
     //  clicking the yes button sends the right call to the store
-
-//  All done; only outstanding
-    // When clicking 'click here', routes to the calendar view
 
 describe('appointments list view', () => {
     let router
@@ -108,14 +104,12 @@ describe('appointments list view', () => {
         expect(modalWindow.exists()).toBe(false)
     })
 
-    // Find how to either trigger the link "click here" (and then check that router.push has been called)
-    // Or how to test that the router-link html contains the path?? 
-    // test('clicking the "click here" link routes the user to the calendar view page', async () => {
-    //     const wrapper = shallowMount(ApptList, mountOptions)
+    test('clicking the "click here" link routes the user to the calendar view page', () => {
+        const wrapper = shallowMount(ApptList, mountOptions)
 
-    //     const link = wrapper.find('[data-testid="calViewLink"]')
-    //     expect(JSON.stringify(link.html())).includes(`<router-link :to="{ name: 'calendar-view' }" data-testid="calViewLink">`)
-    // })
+        const link = wrapper.find('[data-testid="calViewLink"]')
+        expect(link.html()).includes('to="/calendar-view"')
+    })
 
     test('it displays the correct amount of appointments under each section (based on store data)', () => {
         addSampleAppts()

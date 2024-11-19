@@ -8,7 +8,7 @@ import VueCal from 'vue-cal'
 
 // Tests
 //  The initial text and bullet points display
-//  Clicking the click here routes to the list view page
+//  The click here link has the route to the list view page
 //  The vue-cal component displays
 //  The legend displays
 //  The Add Appointment button displays; clicking it launches the popup
@@ -34,6 +34,11 @@ describe('calendar view page', () => {
         expect(wrapper.text().includes('In the Calendar view:')).toBe(true)
         expect(wrapper.text().includes('to create an appointment, click the Add Appointment button at the bottom right of the calendar')).toBe(true)
         expect(wrapper.text().includes('to update an appointment, double click it in the calendar')).toBe(true)
+    })
+
+    test('the "click here" link has the route to the list view page', () => {
+        const link = wrapper.find('[data-testid="listViewLink"]')
+        expect(link.html()).includes('to="/"')
     })
 
     test('the VueCal component displays', () => {

@@ -7,7 +7,7 @@
                 <li>to update an appointment, double click it in the calendar</li>
             </ul>
             <p :class="$style.switchViewDisclaimer">
-                Prefer the list view? To switch please <router-link :to="{ name: 'list-view' }">click here</router-link>.
+                Prefer the list view? To switch please <router-link to="/" data-testid="listViewLink">click here</router-link>.
             </p>
         </div>
         <div :class="$style.mainWrapper">
