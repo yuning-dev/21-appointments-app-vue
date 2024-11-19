@@ -9,7 +9,7 @@
             </p>
             <CreateAppt :appt="appt" @createAppt="createAppointment" @updateAppt="updateAppt" />
             <p :class="$style.switchViewDisclaimer">
-                Prefer the calendar view? To switch please <router-link :to="{ name: 'calendar-view' }">click here</router-link>.
+                Prefer the calendar view? To switch please <router-link to="/calendar-view" data-testid="calViewLink">click here</router-link>.
             </p>
         </section>
         <section :class="[$style.upcomingApptsSection, $style.card]">
@@ -85,7 +85,7 @@
             </ModalWindow>
         </template>
         <section>
-            <button :class="[$style.button, $style.deleteAllButton]" @click="deleteAllBtnClicked">Delete all appointments</button>
+            <button :class="[$style.button, $style.deleteAllBtn]" @click="deleteAllBtnClicked">Delete all appointments</button>
         </section>
         <template v-if="modalDeleteAll">
             <ModalWindow @closeModal="closeModal">
@@ -105,9 +105,6 @@
 
 
 <script>
-import DatePicker from 'primevue/datepicker'
-import InputText from 'primevue/inputtext'
-
 import { mapStores } from 'pinia'
 import { mapState, mapWritableState } from 'pinia'
 import { mapActions } from 'pinia'
@@ -123,21 +120,14 @@ export default {
         Appointment,
         ModalWindow,
         CreateAppt,
-        DatePicker,
-        InputText,
     },
     data() {
         return {
             appt: {},
-            // newTitle: '',
-            // newStart: '',
-            // newEnd: '',
-            // isCompleted: false,
             modalDeleteAll: false,
             modalDeleteUpcoming: false,
             modalDeletePast: false,
             modalDeleteCompleted: false,
-            fancyText: 'Raaaaaahhh'
         }
     },
     async mounted() {
