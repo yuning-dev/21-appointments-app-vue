@@ -7,14 +7,17 @@ export const useApptStore = defineStore('appts', {
     }),
     getters: {
         upcomingApptsList(state) {
+            console.log('Hi I am upcoming list')
             const timeNow = new Date()
             return state.apptList.filter((appt) => appt.end > timeNow && !appt.completion)
         },
         pastApptsList(state) {
+            console.log('Hi I am past list')
             const timeNow = new Date()
             return state.apptList.filter((appt) => appt.end < timeNow && !appt.completion)
         },
         completedApptsList(state) {
+            console.log('Hi I am completed list')
             return state.apptList.filter((appt) => appt.completion)
         },
     },
@@ -34,6 +37,7 @@ export const useApptStore = defineStore('appts', {
                     end: new Date(appt.end),
                 }
             })
+            console.log(this.apptList)
         },
         async sendAppt(newTitle, newStart, newEnd, completionStatus) {
             await axios.post('/api/appointment', {

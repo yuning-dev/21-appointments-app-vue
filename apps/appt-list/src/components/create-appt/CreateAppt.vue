@@ -9,11 +9,11 @@
             <div :class="$style.startEndWrapper">
                 <label>
                     Start
-                    <CustomDatePicker :class="$style.time" v-model="start" data-testid="timePicker"/>
+                    <CustomDatePicker :class="$style.time" v-model="start" data-testid="startDatePicker"/>
                 </label>
                 <label>
                     End
-                    <CustomDatePicker :minDate="earliestApptEnd" :class="$style.time" v-model="end" data-testid="timePicker"/>
+                    <CustomDatePicker :minDate="earliestApptEnd" :class="$style.time" v-model="end" data-testid="endDatePicker"/>
                 </label>
             </div>
             <div v-if="!isInEditMode" :class="$style.addBtnWrapper">
