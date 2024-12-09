@@ -24,7 +24,7 @@
             <ModalWindow @closeModal="closeModal" data-testid="modalWindow">
                 <template v-slot>
                     <div :class="$style.modalContentWrapper">
-                        <CreateApp :appt="appt" :isSidebar="false" @updateAppt="sendUpdateAppt" @deleteAppt="sendDeleteAppt" @closeModal="closeModal"/>
+                        <CreateAppt :appt="appt" :isSidebar="false" @updateAppt="sendUpdateAppt" @deleteAppt="sendDeleteAppt" @closeModal="closeModal"/>
                     </div>
                 </template>
             </ModalWindow>
@@ -41,11 +41,13 @@
 
 <script>
 import ModalWindow from '../modal-window/ModalWindow.vue';
+import CreateAppt from '../create-appt/CreateAppt.vue'
 
 export default {
     name: 'Appointment',
     components: {
-        ModalWindow
+        ModalWindow,
+        CreateAppt
     },
     props: {
         appt: Object,
