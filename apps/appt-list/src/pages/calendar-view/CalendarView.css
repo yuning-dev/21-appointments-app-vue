@@ -13,7 +13,7 @@
     flex-direction: column;
     gap: 30px;
     margin: 0 auto;
-    padding: 5px 30px;
+    padding: 5px 0;
 }
 
 .card {
@@ -21,8 +21,14 @@
     width: 1000px;
     border: 1px solid #7743db;
     border-radius: 10px;
-    padding: 15px;
+    padding: 15px 30px;
     background: #e9dffc;
+}
+
+.title {
+    font-size: 1.4em;
+    text-align: center;
+    padding-bottom: 10px;
 }
 
 .addBtnHighlight {
@@ -33,6 +39,18 @@
     text-align: right;
 }
 
+.switchViewLink {
+    text-decoration: none;
+}
+
+.switchViewLink:hover {
+    text-decoration: underline;
+}
+
+.switchViewLink:active {
+    color: black;
+}
+
 .calSidebarWrapper {
     width: fit-content;
     display: flex;
@@ -41,7 +59,7 @@
 }
 
 .cal {
-    height: 750px;
+    height: 649px;
 }
 
 .legendAddBtnWrapper {
@@ -67,7 +85,7 @@
 
 .completedLegend {
     background: rgb(226, 250, 226);
-    border: 2px double rgb(160, 248, 160);
+    border: 2px double rgb(139, 251, 139);
 }
 
 .pastLegend {
@@ -116,7 +134,7 @@
 
 .completedAppt {
     background: rgb(226, 250, 226);
-    border: 2px double rgb(160, 248, 160);
+    border: 2px double rgb(139, 251, 139);
 }
 
 .pastAppt {
