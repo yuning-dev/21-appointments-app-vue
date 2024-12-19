@@ -2,6 +2,11 @@
     background-color: #f4effd;
 }
 
+.innerWrapper {
+    width: 1000px;
+    margin: 0 auto;
+}
+
 .items {
     display: flex;
 }
@@ -13,5 +18,9 @@
 }
 
 .item:hover {
+    background-color: #e9dffc;
+}
+
+.highlight {
     background-color: #e9dffc;
 }
