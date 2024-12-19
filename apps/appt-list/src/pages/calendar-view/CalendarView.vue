@@ -1,6 +1,7 @@
 <template>
     <div :class="$style.wrapper">
         <div :class="$style.card">
+            <div :class="$style.title">Snazzy Appointments App</div>
             In the Calendar view:
             <ul>
                 <li>to create an appointment, click the <span :class="$style.addBtnHighlight">Add Appointment</span> button at the bottom right of the calendar</li>
@@ -18,8 +19,8 @@
                         ref="vuecal"
                         small
                         :events="formattedAppts"
-                        :time-from="7 * 60"
-                        :time-to="22 * 60"
+                        :time-from="8 * 60"
+                        :time-to="21 * 60"
                         :disable-views="['years', 'year', 'day']"
                         :on-event-create="getCreateApptPopUp"
                         :on-event-dblclick="getUpdateApptPopUp"

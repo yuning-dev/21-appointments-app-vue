@@ -21,8 +21,14 @@
     width: 1000px;
     border: 1px solid #7743db;
     border-radius: 10px;
-    padding: 15px;
+    padding: 15px 30px;
     background: #e9dffc;
+}
+
+.title {
+    font-size: 1.4em;
+    text-align: center;
+    padding-bottom: 10px;
 }
 
 .addBtnHighlight {
@@ -41,7 +47,7 @@
 }
 
 .cal {
-    height: 750px;
+    height: 649px;
 }
 
 .legendAddBtnWrapper {
@@ -67,7 +73,7 @@
 
 .completedLegend {
     background: rgb(226, 250, 226);
-    border: 2px double rgb(160, 248, 160);
+    border: 2px double rgb(139, 251, 139);
 }
 
 .pastLegend {
@@ -116,7 +122,7 @@
 
 .completedAppt {
     background: rgb(226, 250, 226);
-    border: 2px double rgb(160, 248, 160);
+    border: 2px double rgb(139, 251, 139);
 }
 
 .pastAppt {

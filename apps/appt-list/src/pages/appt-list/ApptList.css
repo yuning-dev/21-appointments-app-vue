@@ -6,16 +6,19 @@ body {
     display: flex;
     flex-direction: column;
     gap: 30px;
-    max-width: 1000px;
+    width: 1000px;
     margin: 0 auto;
-    padding: 5px 30px;
+    padding: 5px 0;
 }
 
 .card {
     border: 1px solid #7743db;
     border-radius: 10px;
-    padding: 12px 0 20px 0;
+    padding: 15px 30px;
     background: #e9dffc;
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .button {
@@ -61,6 +64,7 @@ body {
 }
 
 .title {
+    font-size: 1.4em;
     text-align: center;
     padding-bottom: 10px;
 }

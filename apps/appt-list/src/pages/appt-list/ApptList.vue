@@ -1,9 +1,9 @@
 <template>
     <div :class="$style.wrapper">
         <section :class="[$style.header, $style.card]">
-            <h1 :class="$style.title">
+            <div :class="$style.title">
                 Snazzy Appointments App
-            </h1>
+            </div>
             <p :class="$style.intro">
                 Managing appointments has never been easier. Begin by entering your appointment details below.
             </p>
