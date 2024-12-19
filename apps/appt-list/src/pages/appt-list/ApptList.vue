@@ -9,7 +9,7 @@
             </p>
             <CreateAppt :appt="appt" @createAppt="createAppointment" @updateAppt="updateAppt" />
             <p :class="$style.switchViewDisclaimer">
-                Prefer the calendar view? To switch please <router-link to="/calendar-view" data-testid="calViewLink">click here</router-link>.
+                Prefer the calendar view? To switch please <router-link to="/calendar-view" data-testid="calViewLink" :class="$style.switchViewLink">click here</router-link>.
             </p>
         </section>
         <section :class="[$style.upcomingApptsSection, $style.card]">

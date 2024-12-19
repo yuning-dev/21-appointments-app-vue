@@ -13,7 +13,7 @@
     flex-direction: column;
     gap: 30px;
     margin: 0 auto;
-    padding: 5px 30px;
+    padding: 5px 0;
 }
 
 .card {
@@ -37,6 +37,18 @@
 
 .switchViewDisclaimer {
     text-align: right;
+}
+
+.switchViewLink {
+    text-decoration: none;
+}
+
+.switchViewLink:hover {
+    text-decoration: underline;
+}
+
+.switchViewLink:active {
+    color: black;
 }
 
 .calSidebarWrapper {
